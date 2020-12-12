@@ -2,9 +2,31 @@
 \subsection{Leaf node}
 \subsection{Intermediate node}
 \subsection{Execution path}
-\section{LDA}
-\section{TFIDF}
-\section{LSI}
+\subsection{Entry and Exit node}
+\section{Information Retrieval Techniques}
+\subsection{TFIDF}
+TFIDF is weight based statistical information retrieval technique. It tries to find important terms to a specific document by analyzing collection of documents. TFIDF is popular for document classification, search engine ranking and text mining\footnote{https://en.wikipedia.org/wiki/Tf–idf}. TFIDF ranks terms by term frequency-inverse document frequency score. Term frequency is count of a term in a document. Term frequency is biased towards common terms which mostly irrelevant to the document. 
+
+\begin{equation}
+    tf (W_x, D_x) = f_{W_x,D_x}
+    \label{eq:tf_background}
+\end{equation}
+\begin{equation}
+    idf(W_x) = \log(\frac{n}{df(W_x)})+1
+    \label{eq:idf_background}
+\end{equation}
+\begin{equation}
+    tf-idf(W_x, D_x) = tf(W_x,D_x) * idf(W_x)
+    \label{eq:TFIDF_background}
+\end{equation}
+
+
+Jones \cite{jones1972statistical} introduced inverse document frequency which penalties common terms by counting their occurrence across the corpus. Let, $D = \{D_1, D_2, ..., D_n\}$ is a collection of documents and $W = \{W_1, W_2, ....., W_n\}$ is unique terms in the collection of documents. Now, to calculate term frequency for term $W_x$ in document $D_x$, we have to count frequency of term $W_x$ in  document $D_x$ which is required to calculate term frequency according to equation \ref{eq:tf_background}. In addition, we have to count the number of documents has term $W_x$ which is used to calculate inverse document frequency using equation \ref{eq:idf_background}. In equation \ref{eq:idf_background}, $n$ is the number of documents in the corpus and $df(W_x)$ is the number of documents which contain term $W_x$. Equation \ref{eq:TFIDF_background}, multiplies term frequency and inverse document frequency to reward significant terms and penalize common terms. 
+
+
+\subsection{LDA}
+\subsection{LSI}
+\section{Cosine similarity}
 \section{Agglomerative Clustering Algorithm}
 \section{Text Rank}
-\section{SPM}
+\section{Sequential Pattern Mining}
