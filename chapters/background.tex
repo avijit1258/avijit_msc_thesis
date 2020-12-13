@@ -26,7 +26,15 @@ Jones \cite{jones1972statistical} introduced inverse document frequency which pe
 
 \subsection{LDA}
 \subsection{LSI}
-\section{Cosine similarity}
+\section{Jaccard similarity}
 \section{Agglomerative Clustering Algorithm}
 \section{Text Rank}
+Mihalcea \cite{mihalcea2004textrank} proposed graph based ranking algorithm inspired by PageRank algorithm to rank entities in natural language. Two of the significant application of TextRank are keyword extraction and sentence extraction. Sentence extraction can be formulated to generate summary of natural language text. To generate summary of a  text, first, sentences are split as they are the unit for TextRank algorithm. Next, sentences are converted to word embedding vectors. In the next step, similarity matrix is computed from embedding vectors. Then, a graph is created where vertices are sentences and edges represent similarity scores between sentences\footnote{https://www.analyticsvidhya.com/blog/2018/11/introduction-text-summarization-textrank-python/}. Similarity scores are used to extract top ranked sentences according to equation \ref{eq:textrank}.
+
+\begin{equation}
+\label{eq:textrank}
+    WS(V_i) = (1 - d) + d * \sum_{V_j\epsilon IN(V_i) } \frac{w_{ji}}{\sum_{V_k \epsilon Out(V_j)} w_{jk}}  WS(V_j)
+\end{equation}
+
+Let, $ G = (V, E)$ is a directed graph where V is the collection of vertices and E is the collection of edges. $In(V_i)$ is the set of vertices which points to vertex $V_i$. Similarly, $Out(V_j)$ is the set of vertices which vertex $V_j$ points to. The similarity score between vertex $V_i$ and $V_j$ is represented by $w_{ji}$. 
 \section{Sequential Pattern Mining}
