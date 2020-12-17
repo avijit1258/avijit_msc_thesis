@@ -26,8 +26,24 @@ Jones \cite{jones1972statistical} introduced inverse document frequency which pe
 
 \subsection{LDA}
 \subsection{LSI}
-\section{Jaccard similarity}
-\section{Agglomerative Clustering Algorithm}
+\section{Jaccard Distance}
+Jaccard Distance can measure similarity between two sequences according to equation \ref{eq:jaccard}. For example, we have two execution path $E_i$ and $E_j$ and they have set of function names $F_i$ and $F_j$ respectively. Therefore, similarity between $E_i$ and $E_j$ can be measured by equation \ref{eq:jaccard}. 
+\begin{equation}
+\label{eq:jaccard_similar}
+    JD\_similar(E_i, E_j) =  \frac{F_i \bigcap F_j}{F_i \bigcup F_j}
+\end{equation}
+
+\begin{equation}
+\label{eq:jaccard_dissimilar}
+    JD\_dissimilar(E_i, E_j) =  1 - \frac{F_i \bigcap F_j}{F_i \bigcup F_j}
+\end{equation}
+If $E_i$ and $E_j$ are very similar, according to equation \ref{eq:jaccard_similar} similarity score will be near 1 and vice-versa. Clustering algorithm merges those two clusters which distance measures are minimum. Equation \ref{eq:jaccard_dissimilar} subtract Jaccard Distance by 1 to get desire dissimilarity measure for clustering algorithms.
+
+\section{Agglomerative Hierarchical Clustering}
+Clustering algorithms are popular in many data mining, unsupervised machine learning and pattern recognition applications. Clustering algorithm try to group similar observations together to find significant patterns in the observations. Hierarchical clustering can be done in two ways. One is bottom-up (agglomerative) and another is top-down (devisive). For Devisive clustering, all observations starts in a single cluster and divided into different clusters using heuristics. Agglomerative clustering starts by considering observations as individual clusters and then group them until all observations end-up in the same cluster.
+
+\emph{Include two image to clearly demonstrate how clustering works}
+
 \section{Text Rank}
 Mihalcea \cite{mihalcea2004textrank} proposed graph based ranking algorithm inspired by PageRank algorithm to rank entities in natural language. Two of the significant application of TextRank are keyword extraction and sentence extraction. Sentence extraction can be formulated to generate summary of natural language text. To generate summary of a  text, first, sentences are split as they are the unit for TextRank algorithm. Next, sentences are converted to word embedding vectors. In the next step, similarity matrix is computed from embedding vectors. Then, a graph is created where vertices are sentences and edges represent similarity scores between sentences\footnote{https://www.analyticsvidhya.com/blog/2018/11/introduction-text-summarization-textrank-python/}. Similarity scores are used to extract top ranked sentences according to equation \ref{eq:textrank}.
 
