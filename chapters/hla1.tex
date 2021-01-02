@@ -18,9 +18,6 @@ techniques.
 
 
 
-
-
-
 \section{Introduction}
 Understanding the source code of a software system is a prevalent and vital task for the developers because many software engineering tasks depend on program comprehension \cite{cornelissen2009systematic, gilmore1991models, xie2016revisit, feng2018dynamic}. It is difficult for an individual developer to develop an enterprise software system on his own. Therefore, when someone is assigned to a task or join a development team, they need to understand the existing system to get used to the system. This program comprehension involves a lot of browsing back-and-forth between different granularity levels of the codebase. To reduce developers' effort to comprehend program artifacts, a lot of research is going on in the field of program comprehension \cite{feng2018dynamic, gharibi2018automatic, kulkarni2014supporting, izu2019program}. An abstract representation of the target software system can easily guide the exploration of low-level source code depending on developers' maintenance tasks. One of the approaches is to generate dynamic logs of function executions while running an existing system on different test cases. The logs can then be used with other methods to produce a suitable output for developers to comprehend the software system \cite{feng2018dynamic}.
 Moreover, most of the dynamic approaches generate dynamic call graphs from the generated dynamic logs of various system scenarios. However, the problem with dynamic call logs is that it only considers the function executions invoked during the dynamic log generation of a target system based on the test cases. As a result, not all the functionalities of the target system are considered during the codebase investigation. Another problem with dynamic logs is, it generates billions of data, which are mostly redundant. If someone wants to abstract the whole system for comprehension purposes, then using dynamic logs does not help much to cover the entire system.
@@ -52,7 +49,8 @@ and finally, Section \ref{conclusion} concludes the paper by mentioning our futu
 To demonstrate how the hierarchical abstraction of a software system will work, we have created a sample Calculator program. The program takes two numbers as input, validates the inputs and prompts the user to input which operations they want to perform. Later, according to the input, addition, subtraction, multiplication, division can be performed. This is a brief functionality of the calculator program. 
 
 
-Now, in Figure \ref{fig:motivation} we have presented hierarchical abstraction of the Calculator program. From the figure, we can see our Calculator program has six execution paths. Their node number is from 0-5. \begin{figure*}[tb]
+Now, in Figure \ref{fig:motivation} we have presented hierarchical abstraction of the Calculator program. From the figure, we can see our Calculator program has six execution paths. Their node number is from 0-5.
+\begin{figure*}[tb]
   \centering
   \includegraphics[width=\columnwidth]{figures/hla1/motivation_n.png}
   \caption{Hierarchical abstraction of the calculator program (EP means Execution path or leaf node and IN means Hypothetical abstraction or Intermediate Node)}~\label{fig:motivation}
