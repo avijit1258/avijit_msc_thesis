@@ -1,18 +1,25 @@
 \section{Call graph}
-Sample code to call graph and then execution path, entry node, exit node.
+
+A \emph{call graph} is a control flow graph of a program showing calling relationships between functions. Each node of the graph represents a function and each edge $(a, b)$ represent calling relationship where function $a$ calls function $b$. Figure \ref{fig:bg_call_graph} shows a simple call graph with six nodes indicating functions and six edges indicating calling relationships. Call graphs can be two type. One type is static call graph. A static call graph contains all the possible program execution scenarios. To generate a static call graph, source code of the program is analyzed to find the relationships. A dynamic call graph represents one program run scenario. Therefore, a dynamic call graph is exact and limited to the scenarios used to generate the graph. To generate a dynamic call graph, logger or profiler is applied which generates call graph during run-time of the program.
+
+An \emph{entry node} for a call graph is the nodes which number of incoming degree is zero. In Figure \ref{fig:bg_call_graph}, the call graph has two entry nodes \emph{F0, F3}. No other nodes call the functions or nodes \emph{F0, F3}. That means program execution can start from this nodes.
+
+An \emph{exit node} for a call graph is the nodes which number of outgoing degree is zero. In Figure \ref{fig:bg_call_graph}, the call graph has two exit nodes \emph{F0, F3}. The exit nodes \emph{F0, F3} do not call any other functions or nodes. That means program execution will end when we come to this node.
+
+
+The \emph{execution paths} of a call graph are the all possible program execution scenarios. A program execution scenario consist of a function call sequence starting from a \emph{entry node} and ending to a \emph{exit node} of the call graph. In Figure \ref{fig:bg_execution_path}, all the execution paths from the call graph of Figure \ref{fig:bg_call_graph} are listed. First node of the execution paths are the Entry nodes which is defined above. Similarly, Last node of the execution paths are the Exit nodes. 
+
 
 \begin{figure}[h]	
 	\centering
 	\begin{subfigure}[h]{3in}
-		%\centering
-		\includegraphics[width=3in]{figures/background/call graph.png}
-		\caption{A sample call graph}\label{fig:agglomerative_clustering}		
+	\includegraphics[width=3in]{figures/background/call graph.png}
+	\caption{A sample call graph}\label{fig:bg_call_graph}		
 	\end{subfigure}
 	\quad
 	\begin{subfigure}[h]{3in}
-		%\centering
 		\includegraphics[width=3in]{figures/background/execution_paths.png}
-		\caption{All execution paths from the call graph}\label{fig:1b}
+		\caption{All execution paths from the call graph}\label{fig:bg_execution_path}
 	\end{subfigure}
 	\caption{Call graph with entry node, exit node and execution paths}\label{fig:1}
 \end{figure}
