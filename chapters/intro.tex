@@ -1,11 +1,24 @@
 \section{Motivation}
+ The growing complexity of software applications requires large codebase. As the life-cycle of a software increases, more resources are devoted to the maintenance of the software. If some developer wants to add a new feature or fix bugs in existing features, they need to understand related domain knowledge alongside relevant code structure. The ratio of reading code versus writing code in a software developers role is over 10 to 1 \cite{martin2008clean}. In addition, if a new developer joins the team, they need to understand how the high-level feature maps with existing low-level source code. When a software developer has to implement a new feature or enhance an existing feature, they need to look for the relevant files, classes to understand how different part of the relevant code interacts. After getting a good grasp on the relevant codebase, the developer can start working on the new feature. The process of looking for relevant codebase to fix a bug or implement a new feature is called concept location. Existing techniques for concept location focus on keyword based searching in the codebase. Code search engines return relevant files, classes when developers search for particular keywords. 
+ 
+ However, the program comprehension techniques mainly consist of two models. One is the top-down model where developers have the domain knowledge of the system and tries to map bottom-level source code to the high-level domain knowledge. In many cases, the developers lack the domain knowledge which force them to go through low-level codebase and gradually build the high-level knowledge. The process of cognitive mapping from source code to domain knowledge is called bottom-up model. When the codebase is new or unknown to the developer, generally bottom-up model is followed by the developers. The top-down model is more flexible and efficient as developers have some idea what to expect in the codebase or where to start from. 
+ 
+ As program comprehension is an integral part for software maintenance, better tool support for program comprehension will help developers do their day-to-day job faster. Better tool support for program comprehension can save valuable human resource which cut the overall cost of a software maintenance. Developers prefer to have high-level domain knowledge and then map the source code to the domain knowledge. To reduce the dependence on bottom-up model, researchers work on building hierarchical abstraction which simulate the process of bottom-up model. Finally providing a tree like structure where high-level concepts in the software systems are presented by grouping topics in low-level source code. 
+\newpage
+In the source code, method names are the lowest level abstraction. The method names represent a single unit task of the overall system. The interaction between different methods are the building blocks to understand high-level concept in source code. Call graphs are visual representation of interaction between methods in the system. Call graphs construction methods are two types. The static call graphs are built by analyzing source code to find the caller-callee relationships between different methods. Later, building a graph using the relationships where edges represent which method calls which method and nodes represent the method names. Another type of call graph is dynamic call graph. The dynamic call graphs are constructed by logging function invocation sequences during the run-time. To generate dynamic call graph, the software system needs to be run for different scenarios. During the scenario execution, function invocations are recorded which can be converted to a graph similar to the static call graph. The main difference between dynamic call graph and static call graph is that the dynamic call graph contains the only methods invoked during the execution where the static call graph contains all the methods in the codebase. The advantage of dynamic call graph is that the call graph can be generated for a targeted execution scenarios. However, as we want to create a tool for supporting program comprehension models, including all possible scenarios is very crucial. One more disadvantages of dynamic call graph is that it generates huge redundant data which is difficult to process. 
+
+
+ 
+\newpage
 
 \section{Research Problems}
 
 \section{Addressing Research Problems}
 \subsection{Study 1}
+
 \subsection{Study 2}
-\subsection{Study 3}
+
+% \subsection{Study 3}
 \section{Related Publications}
 
 \section{Outline of the Thesis}
