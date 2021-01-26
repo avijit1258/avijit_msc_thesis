@@ -1,3 +1,4 @@
+\label{chapter:hla2}
 Program comprehension is a concept of understanding code to perform different software maintenance tasks. In recent years, the size of the code base is increasing drastically, which makes program comprehension difficult. To cope with the demand, many research works have been performed to understand how developers comprehend a program or code snippet and how to support developers to start their assigned tasks quickly. Different cognitive models are proposed in the literature to ease comprehension. 
 Recently, studies to cluster execution paths of a call graph to aid overall program comprehension are going on.
 We argue that this structure can be used to aid the top-down and bottom-up cognition model of program comprehension.
@@ -171,7 +172,7 @@ The function $f_{t,d}$ counts frequency of term $t$ in the document $d$. Inverse
     \item LDA:
 Latent Dirichlet Allocation (LDA) \cite{blei2003latentLDA} is a statistical model that tries to describe a set of documents by assuming they are created from some topics. LDA is a popular topic modeling technique. LDA assumes every term in a document belongs to some topic. So, it considers each term belongs to some topic and then performs analysis to find which assumptions are supported by statistics of the corpus. We have used Gensim \cite{gensim} library for implementing LDA for our approach.
     \item LSI:
-Latent Semantic Indexing (LSI) \cite{deerwester1990indexingLSI} is a technique used in natural language processing. LSI assumes semantically similar words occur together. First, the term-document frequency matrix is calculated from the corpus. This term-document frequency matrix is decomposed into three matrices using the Single Value Decomposition(SVD) technique. Terms are first assigned to topics using the term-document frequency matrix. Then, using all the topics, a topic importance matrix is derived, which leads to topics for the documents. Similar to LDA, we used Gensim \cite{gensim} library for implementing LSI. 
+Latent Semantic Indexing (LSI) \cite{deerwester1990indexingLSI} is a technique used in natural language processing. LSI assumes semantically similar words occur together. First, the term-document frequency matrix is calculated from the corpus. This term-document frequency matrix is decomposed into three matrices using the Single Value Decomposition (SVD) technique. Terms are first assigned to topics using the term-document frequency matrix. Then, using all the topics, a topic importance matrix is derived, which leads to topics for the documents. Similar to LDA, we used Gensim \cite{gensim} library for implementing LSI. 
 \end{itemize}
 
 \subsubsection{Summary description of intermediate/abstraction node}
