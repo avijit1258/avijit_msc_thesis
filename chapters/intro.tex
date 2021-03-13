@@ -13,10 +13,11 @@ As the static call graph properties align more with the goal of building hierarc
  
 \newpage
 
+
 \section{Problem Statement}
 
 \begin{itemize}
-    \item \textbf{Problem Statement \#1} In the literature, lot of study performed to generate hierarchical abstraction of a software system using both static and dynamic call graph \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster, xin2019identifyingFeaturesExecution}. The hierarchical abstraction is a tree like structure where nodes are labeled using different techniques. The success of the abstraction tree depends on how well the labeling technique performs. Different information retrieval techniques show promise in naming source code artifacts \cite{chen2016topicMiningRepositories, panichella2013topicModelsTasks, sun2016surveyTopicSE}. Although a lot of work exist on hierarchical abstraction, they lack comprehensive study on labeling techniques in labeling nodes in an abstraction tree. Moreover, methods are treated as term in the information retrieval techniques for labeling nodes. Using words in method signature as term for information retrieval techniques pose the potential for more sophisticated node labeling. 
+    \item \textbf{Problem Statement \#1} In the literature, a great many studies have been performed to generate hierarchical abstraction of a software system using both static and dynamic call graph \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster, xin2019identifyingFeaturesExecution}. The hierarchical abstraction is a tree like structure where nodes are labeled using different techniques. The success of the abstraction tree depends on how well the labeling technique performs. Different information retrieval techniques show promise in naming source code artifacts \cite{chen2016topicMiningRepositories, panichella2013topicModelsTasks, sun2016surveyTopicSE}. Although a lot of work exist on hierarchical abstraction, they lack comprehensive study on labeling techniques in labeling nodes in an abstraction tree. Moreover, methods are treated as term in the information retrieval techniques for labeling nodes. Using words in method signature as term for information retrieval techniques pose the potential for more sophisticated node labeling. 
     
     \item \textbf{Problem Statement \#2}
     Nodes in hierarchical abstraction tree have only few keywords extracted from method signatures. As the abstraction tree represents summary of the whole software system, labeling the nodes only with few keywords is not sufficient for a comprehensive understanding of the system. In the existing studies on hierarchical abstraction did not address this issue \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster}. Using method comment to generate a summary for the nodes  pave the way for a better comprehensive understanding. Execution paths in the call graph represent execution scenarios \cite{salah2005scenariographer,pradel2009automatic}. As in the literature, execution paths are clustered for abstraction tree generation, providing significant patterns in the execution paths with the nodes further improves the comprehension. Overall, this two property addition in the abstraction tree improves the overall usefulness of the tree. 
@@ -28,7 +29,7 @@ As the static call graph properties align more with the goal of building hierarc
 
 
 
-\section{Our Contribution}
+\section{Solution}
 Considering the above problem statements in the domain of program comprehension through hierarchical abstraction, we contributed three studies. Below we have briefly discussed the three studies.  
 
 \subsection{Labeling abstraction nodes and human evaluation}
