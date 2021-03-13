@@ -14,20 +14,21 @@ As the static call graph properties align more with the goal of building hierarc
 \newpage
 
 
-\section{Problem Statement}
+\section{Problem }
 
-\begin{itemize}
-    \item \textbf{Problem Statement \#1} In the literature, a great many studies have been performed to generate hierarchical abstraction of a software system using both static and dynamic call graph \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster, xin2019identifyingFeaturesExecution}. The hierarchical abstraction is a tree like structure where nodes are labeled using different techniques. The success of the abstraction tree depends on how well the labeling technique performs. Different information retrieval techniques show promise in naming source code artifacts \cite{chen2016topicMiningRepositories, panichella2013topicModelsTasks, sun2016surveyTopicSE}. Although a lot of work exist on hierarchical abstraction, they lack comprehensive study on labeling techniques in labeling nodes in an abstraction tree. Moreover, methods are treated as term in the information retrieval techniques for labeling nodes. Using words in method signature as term for information retrieval techniques pose the potential for more sophisticated node labeling. 
+
+    \subsection{Sub-Problem \#1: Lack of human evaluation and comparison between IR techniques} In the literature, a great many studies have been performed to generate hierarchical abstraction of a software system using both static and dynamic call graph \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster, xin2019identifyingFeaturesExecution}. The hierarchical abstraction is a tree like structure where execution scenarios are clustered and each node is labeled using different IR techniques on source code entities. The success of the abstraction tree depends on how well the labeling techniques perform. Different information retrieval techniques show promise in naming source code artifacts \cite{chen2016topicMiningRepositories, panichella2013topicModelsTasks, sun2016surveyTopicSE}. Although a lot of work exist on hierarchical abstraction, they lack comprehensive study on the effectiveness of different information retrieval techniques in labeling nodes of an abstraction tree with human in the loop. Moreover, methods are treated as a unit [cite] while using different information retrieval techniques for labeling nodes. Previous research [cite] show that IR techniques perform better when more information like comments are used instead of method names. Therefore, using method names as unit provides less opportunity to retrieve the overall context.
     
-    \item \textbf{Problem Statement \#2}
-    Nodes in hierarchical abstraction tree have only few keywords extracted from method signatures. As the abstraction tree represents summary of the whole software system, labeling the nodes only with few keywords is not sufficient for a comprehensive understanding of the system. In the existing studies on hierarchical abstraction did not address this issue \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster}. Using method comment to generate a summary for the nodes  pave the way for a better comprehensive understanding. Execution paths in the call graph represent execution scenarios \cite{salah2005scenariographer,pradel2009automatic}. As in the literature, execution paths are clustered for abstraction tree generation, providing significant patterns in the execution paths with the nodes further improves the comprehension. Overall, this two property addition in the abstraction tree improves the overall usefulness of the tree. 
 
-    \item \textbf{Problem Statement \#3} Hierarchical abstraction tree help developers to understand high-level domain knowledge. When developers have domain knowledge, they tend to follow top-down model. As the abstraction tree captures high-level summary of whole software system, it is difficult to browse the abstraction tree for a specific task in hand. Browsing the abstraction tree by a guided way driven by task in hand can make the tree more usable in software maintenance. 
+    \subsection{Sub-Problem \#2: Abstraction nodes are too short for useful comprehension}
+    In the previous studies \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster}, nodes in the hierarchical abstraction tree have only few keywords extracted from method signatures. During our first study to evaluate IR techniques on labeling nodes, we observed that using 5-10 method names or words serves the purpose as a title for the node.
+    To evaluate node labeling techniques, we provide  
     
+   
+
+    \subsection{Sub-Problem \#3: Making the abstraction tree usable for software engineering tasks} Hierarchical abstraction tree help developers to understand high-level domain knowledge. When developers have domain knowledge, they tend to follow top-down model. As the abstraction tree captures high-level summary of whole software system, it is difficult to browse the abstraction tree for a specific task in hand. Browsing the abstraction tree by a guided way driven by task in hand can make the tree more usable in software maintenance. 
     
-\end{itemize}
-
-
+\section{Research Questions}    
 
 \section{Solution}
 Considering the above problem statements in the domain of program comprehension through hierarchical abstraction, we contributed three studies. Below we have briefly discussed the three studies.  
@@ -45,7 +46,12 @@ techniques.
 
 \subsection{Providing summary and significant patterns for abstraction nodes}
 
-In this study, we develop two new techniques to make nodes in hierarchical abstraction tree more understandable to address \emph{problem statement \#2}. First, to complement existing techniques of labeling nodes, we add a summary to the node by using all the method comments under that node. Second, inspired by previous studies we add significant patterns for each node by analyzing all execution paths under each node. We conduct an empirical study with three subject systems to evaluate the potential of the two proposed techniques. We found that proposed techniques complement existing abstraction tree although there are some challenges. By addressing those challenges, the proposed techniques will be more effective for program comprehension. 
+In this study, we develop two new techniques to make nodes in hierarchical abstraction tree more understandable to address \emph{sub-problem \#2}. First, to complement existing techniques of labeling nodes, we add a text description to the node by summarizing all the method comments under that node. Second, inspired by previous studies [cite] we add significant patterns for each node by analyzing all execution paths under the node. We conduct an empirical study with three subject systems to evaluate the potential of the two proposed techniques. We found that proposed techniques complement existing abstraction tree although there are some challenges. By addressing those challenges, the proposed techniques will be more effective for program comprehension. 
+
+ \textbf{From sub problem 2, include it}
+ 
+ 
+ Using method comment to generate a summary for the nodes  pave the way for a better comprehensive understanding. Execution paths in the call graph represent execution scenarios \cite{salah2005scenariographer,pradel2009automatic}. As in the literature, execution paths are clustered for abstraction tree generation, providing significant patterns in the execution paths with the nodes further improves the comprehension. Overall, this two property addition in the abstraction tree improves the overall usefulness of the tree. 
 
 \subsection{Usability study of hierarchical abstraction tree}
 
