@@ -15,23 +15,37 @@ As the static call graph properties align more with the goal of building hierarc
 
 
 \section{Problem }
-
+\label{sec:problem}
 
     \subsection{Sub-Problem \#1: Lack of human evaluation and comparison between IR techniques} In the literature, a great many studies have been performed to generate hierarchical abstraction of a software system using both static and dynamic call graph \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster, xin2019identifyingFeaturesExecution}. The hierarchical abstraction is a tree like structure where execution scenarios are clustered and each node is labeled using different IR techniques on source code entities. The success of the abstraction tree depends on how well the labeling techniques perform. Different information retrieval techniques show promise in naming source code artifacts \cite{chen2016topicMiningRepositories, panichella2013topicModelsTasks, sun2016surveyTopicSE}. Although a lot of work exist on hierarchical abstraction, they lack comprehensive study on the effectiveness of different information retrieval techniques in labeling nodes of an abstraction tree with human in the loop. Moreover, methods are treated as a unit [cite] while using different information retrieval techniques for labeling nodes. Previous research [cite] show that IR techniques perform better when more information like comments are used instead of method names. Therefore, using method names as unit provides less opportunity to retrieve the overall context.
     
 
     \subsection{Sub-Problem \#2: Abstraction nodes are too short for useful comprehension}
-    In the previous studies \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster}, nodes in the hierarchical abstraction tree have only few keywords extracted from method signatures. During our first study to evaluate IR techniques on labeling nodes, we observed that using 5-10 method names or words serves the purpose as a title for the node.
-    To evaluate node labeling techniques, we provide  
+    In the previous studies \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster}, nodes in the hierarchical abstraction tree have only few keywords extracted from method signatures. During our first study to evaluate IR techniques on labeling nodes, we observed that using 5-10 method names or words serves the purpose as a title for the node. The title can provide some context although it is difficult to comprehend what is happening inside a node without further detail. The content inside a node are execution paths which can be of variable length with many in quantity. Providing all the execution paths of a node to developers hinders the purpose of abstraction in nodes. Therefore, the challenge is to come up with a solution which can briefly provide context of a node without providing everything. 
     
    
 
-    \subsection{Sub-Problem \#3: Making the abstraction tree usable for software engineering tasks} Hierarchical abstraction tree help developers to understand high-level domain knowledge. When developers have domain knowledge, they tend to follow top-down model. As the abstraction tree captures high-level summary of whole software system, it is difficult to browse the abstraction tree for a specific task in hand. Browsing the abstraction tree by a guided way driven by task in hand can make the tree more usable in software maintenance. 
+    \subsection{Sub-Problem \#3: Making the abstraction tree usable for software engineering tasks} 
     
-\section{Research Questions}    
+    New comers to open source software struggle with lack of domain knowledge. Usually developers look for trending projects in their choice of language to contribute. As most of the time the problem being solved is unknown to the contributor, developers struggle to map low-level source code to high-level concepts. As it is stated in previous studies [cite], developers prefer Top-down model to browser source code for program comprehension. In top-down model developers have some domain knowledge, which they later try to map with source code. The hierarchical abstraction tree have the potential to bridge gap between top-down and bottom-up cognition model. However, the challenge is how to tailor the abstraction tree for the developers to use for a specific task in hand or targeting a specific unit of source code (method). 
+    
+    % Hierarchical abstraction tree help developers to understand high-level domain knowledge. When developers have domain knowledge, they tend to follow top-down model. As the abstraction tree captures high-level summary of whole software system, it is difficult to browse the abstraction tree for a specific task in hand. Browsing the abstraction tree by a guided way driven by task in hand can make the tree more usable in software maintenance. 
+    
+\section{Research Questions}   
+While considering the above problems discussed in Section \ref{sec:problem}, we came up with below mentioned five research questions.
+\begin{itemize}
+    \item RQ1: How well the automatic labeling with the candidate approaches perform compared to manual labeling?
+    \item RQ2: What are the developers preferences between method name versus words in method name variation of labeling techniques?
+    \item RQ3: How can we provide a natural text summary to an abstraction nodes?
+    \item RQ4: How can we provide significant patterns in execution paths for each abstraction node?
+    \item RQ5: How can we make the abstraction tree useful for daily day-to-day software engineering jobs?
+    
+\end{itemize}
+
+Research question one and two correspond to \emph{sub-problem 1}, research question three and four correspond to \emph{sub-problem 2} and research question five correspond to \emph{sub-problem 3}. The main goal of this research is to help developers during program comprehension activities. 
 
 \section{Solution}
-Considering the above problem statements in the domain of program comprehension through hierarchical abstraction, we contributed three studies. Below we have briefly discussed the three studies.  
+Considering the three above mentioned problem statements (Section \ref{sec:problem}) in the domain of program comprehension, we contributed three studies. Below we have briefly discussed the three studies.  
 
 \subsection{Labeling abstraction nodes and human evaluation}
 
@@ -46,16 +60,16 @@ techniques.
 
 \subsection{Providing summary and significant patterns for abstraction nodes}
 
-In this study, we develop two new techniques to make nodes in hierarchical abstraction tree more understandable to address \emph{sub-problem \#2}. First, to complement existing techniques of labeling nodes, we add a text description to the node by summarizing all the method comments under that node. Second, inspired by previous studies [cite] we add significant patterns for each node by analyzing all execution paths under the node. We conduct an empirical study with three subject systems to evaluate the potential of the two proposed techniques. We found that proposed techniques complement existing abstraction tree although there are some challenges. By addressing those challenges, the proposed techniques will be more effective for program comprehension. 
+In this study, we develop two new techniques to make nodes in hierarchical abstraction tree more understandable to address \emph{sub-problem \#2}. Generally methods are expected to come with documentation at the start with a single line describing what the function does unless the method is very short and obvious \footnote{https://google.github.io/styleguide/pyguide.html}. First, We tried to exploit this common practice for generating brief text summary for each node. 
+To complement existing techniques of labeling nodes, we add a text description to the node by summarizing all the method comments under that node. 
 
- \textbf{From sub problem 2, include it}
- 
- 
- Using method comment to generate a summary for the nodes  pave the way for a better comprehensive understanding. Execution paths in the call graph represent execution scenarios \cite{salah2005scenariographer,pradel2009automatic}. As in the literature, execution paths are clustered for abstraction tree generation, providing significant patterns in the execution paths with the nodes further improves the comprehension. Overall, this two property addition in the abstraction tree improves the overall usefulness of the tree. 
+Second, execution paths in the call graph represent execution scenarios~\cite{salah2005scenariographer,pradel2009automatic}. Therefore, inspired by previous studies [cite] we add significant patterns for each node by analyzing all execution paths under the node. We conduct an empirical study with three subject systems to evaluate the potential of the two proposed techniques. We found that proposed techniques complement existing abstraction tree although there are some challenges. By addressing those challenges, the proposed techniques will be more effective for program comprehension. 
+
 
 \subsection{Usability study of hierarchical abstraction tree}
+As discussed in the \emph{sub-problem #3}, making the abstraction tree browse-able with specific target is helpful for new contributors in open source software systems. Having system which helps top-down cognition possible without domain knowledge can be a game changer for new contributors. In this study, we have built a system where tree can be browsed by selecting a specific method or class. When a specific method or class is selected, relevant concepts in the tree are highlighted. Moreover, developers can see information like files involved, number of execution paths, summary and frequent patterns of a abstraction node. To evaluate the effectiveness, we have collected expert opinion regarding the usability of the system. 
 
-In this study, we built an interactive system which help developers use the abstraction tree in a guided way to address \emph{problem statement \#3}. When Developers search with keywords in the tree, the system highlight the relevant nodes. So, the developers can browse the abstraction tree for specific task in hand. We conducted a user-study to evaluate the effectiveness of the system. 
+% In this study, we built an interactive system which help developers use the abstraction tree in a guided way to address \emph{problem statement \#3}. When Developers search with keywords in the tree, the system highlight the relevant nodes. So, the developers can browse the abstraction tree for specific task in hand. We conducted a user-study to evaluate the effectiveness of the system. 
 
 % \section{Related Publications}
 
