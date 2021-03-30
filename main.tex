@@ -11,6 +11,7 @@
 \usepackage{todonotes}
 \usepackage{subcaption}
 \usepackage{graphicx}
+\usepackage{listings}
 
 \usepackage[linesnumbered,ruled]{algorithm2e}
 
@@ -27,7 +28,7 @@
 
 % THESIS TITLE
 % Specify the title. Set the capitalization how you want it.
-\title{Human centric program comprehension using hierarchical abstractions of software systems}
+\title{HCPC: Human centric program comprehension using hierarchical abstractions of software systems}
 
 % AUTHOR'S NAME
 % Your name goes here.
@@ -145,11 +146,17 @@ I dedicate this thesis to my mother Bina Bhattacharjee, my father Arun Kumar Bha
 \chapter{Background}
 \input{chapters/background}
 
-\chapter{Exploration of Techniques to Obtain User-centric Hierarchical Abstractions of Software systems for Supporting Program Comprehension}
+\chapter{Related Work}
+\input{chapters/related_work}
+
+\chapter{ Labeling abstraction nodes and human evaluation}
 \input{chapters/hla1}
 
-\chapter{Hierarchical representation of a software system  for aiding top-down and bottom-up model of program comprehension}
+\chapter{ Providing summary and significant patterns for abstraction nodes}
 \input{chapters/hla2}
+
+\chapter{Usability study of hierarchical abstraction tree}
+\input{chapters/hla3}
 
 \chapter{Conclusion and Future Plan}
 \input{chapters/conclusion}
@@ -189,13 +196,9 @@ I dedicate this thesis to my mother Bina Bhattacharjee, my father Arun Kumar Bha
 % in the table of contents.  You can use \input's here as well.
 \begin{appendices}
 
-\chapter{Sample Appendix}
+\chapter{Simple Calculator program to demonstrate the clustering approach}
 
-Stuff for this appendix goes here.
-
-\chapter{Another Sample Appendix}
-
-Stuff for this appendix goes here.
+\lstinputlisting{appendix/calculator.py}
 
 \end{appendices}
 
