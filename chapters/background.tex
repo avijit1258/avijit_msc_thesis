@@ -7,7 +7,11 @@
 % Background related works for committee
 
 \label{chapter:background}
+
+In this chapter, we briefly discuss relevant terms, topics and techniques helpful to this thesis. In Section \ref{background:call_graph}, we elaborate terms relevant to a call graph. We then present concept cluster tree in Section \ref{background:cct}. In Section \ref{background:motive}, we provide a concept cluster tree for a sample calculator program using our system. In Section \ref{background:techniques}, we have elaborated different techniques and algorithms used in the thesis. 
+
 \section{Call graph}
+\label{background:call_graph}
 A \emph{call graph} is a control flow graph of a program showing calling relationships between functions. Each node of the graph represents a function and each edge $(a, b)$ represent calling relationship where function $a$ calls function $b$. Figure \ref{fig:bg_call_graph} shows a simple call graph with six nodes indicating functions and six edges indicating calling relationships. Call graphs can be two type. One type is static call graph. A static call graph contains all the possible program execution scenarios. To generate a static call graph, source code of the program is analyzed to find the relationships. A dynamic call graph represents one program run scenario. Therefore, a dynamic call graph is exact and limited to the scenarios used to generate the graph. To generate a dynamic call graph, logger or profiler is applied which generates call graph during run-time of the program.
 
 \begin{figure}[h]	
@@ -35,10 +39,11 @@ The \emph{execution paths} of a call graph are the all possible program executio
 
 
 \section{Concept Cluster Tree}
-Explain the concept cluster tree, with the role of leaf node, intermediate nodes for example. 
+\label{background:cct}
+Explain the concept cluster tree, with the role of leaf node, intermediate nodes for example. % create a similar figure to CCT but bring the summary, pattern part. May be try to use the previous call graph info to generate the tree and explain well so that anyone can understand
 
 \section{Motivational Example}
-\label{motive}
+\label{background:motive}
 To demonstrate how a software system's hierarchical abstraction will work, we have created a sample Calculator program. The program takes two numbers as input, validates the inputs, and prompts the user to input which operations they want to perform. Later, according to the input, addition, subtraction, multiplication, division can be performed. This is a brief functionality of the calculator program. 
 
 In Figure \ref{fig:motivation} we have presented the hierarchical abstraction of the Calculator program. From the figure, we can see our Calculator program has six execution paths. Their node number is from 0-5. 
@@ -56,7 +61,8 @@ In Figure \ref{fig:motivation} we have presented the hierarchical abstraction of
 
 
 
-\section{Information Retrieval Techniques}
+\section{ Techniques \& Algorithms}
+\label{background:techniques}
 \subsection{TFIDF}
 TFIDF is weight based statistical information retrieval technique. It tries to find important terms to a specific document by analyzing collection of documents. TFIDF is popular for document classification, search engine ranking and text mining\footnote{https://en.wikipedia.org/wiki/Tf–idf}. TFIDF ranks terms by term frequency-inverse document frequency score. Term frequency is count of a term in a document. Term frequency is biased towards common terms which mostly irrelevant to the document. 
 
