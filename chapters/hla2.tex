@@ -1,8 +1,10 @@
 \label{chapter:hla2}
-Program comprehension is a concept of understanding code to perform different software maintenance tasks. In recent years, the size of the code base is increasing drastically, which makes program comprehension difficult. To cope with the demand, many research works have been performed to understand how developers comprehend a program or code snippet and how to support developers to start their assigned tasks quickly. Different cognitive models are proposed in the literature to ease comprehension. 
-Recently, studies to cluster execution paths of a call graph to aid overall program comprehension are going on.
-We argue that this structure can be used to aid the top-down and bottom-up cognition model of program comprehension.
-This paper has adopted new techniques for the hierarchical abstraction of a software system that performs better than the existing literature's related techniques. We conducted an exploratory case-study with three subject systems to validate our hypothesis. We found that it is possible to use this hierarchical presentation to enrich above mentioned cognition models.   
+In this chapter, we briefly discuss how we generated summary and execution patterns for abstraction nodes. Section \ref{hla2:approach} describes how the proposed approach works. In Section \ref{hla2:evaluation}, an exploratory case study is reported to validate our proposed techniques.
+
+% Program comprehension is a concept of understanding code to perform different software maintenance tasks. In recent years, the size of the code base is increasing drastically, which makes program comprehension difficult. To cope with the demand, many research works have been performed to understand how developers comprehend a program or code snippet and how to support developers to start their assigned tasks quickly. Different cognitive models are proposed in the literature to ease comprehension. 
+% Recently, studies to cluster execution paths of a call graph to aid overall program comprehension are going on.
+% We argue that this structure can be used to aid the top-down and bottom-up cognition model of program comprehension.
+% This paper has adopted new techniques for the hierarchical abstraction of a software system that performs better than the existing literature's related techniques. We conducted an exploratory case-study with three subject systems to validate our hypothesis. We found that it is possible to use this hierarchical presentation to enrich above mentioned cognition models.   
 
 \section{Introduction}
 
@@ -19,12 +21,10 @@ In the top-down model, when developers have domain knowledge of a system, they t
 \end{itemize}
 
 Our investigation shows that providing a natural text description and sample execution patterns increase the comprehensibility of abstraction nodes. 
-  
-The rest of our paper is organized as follows. Section \ref{approach} describes how the proposed approach works. In Section \ref{evaluation}, an exploratory case study is reported to validate our proposed techniques.
-
+ 
 
 \section{Approach}
-\label{approach}
+\label{hla2:approach}
 \begin{figure*}[tb]
   \centering
   \includegraphics[width=\columnwidth]{figures/hla2/tree_structure.png}
@@ -167,7 +167,7 @@ TextRank~\cite{barrios2016variationsTextRankSummarization} is a graph-based auto
 To get significant patterns for node 3 in Figure \ref{fig:tree_structure}, we have to analyze execution paths of node 6 and node 7. The execution paths of node 6 and 7 have $ F3 \rightarrow  F1 $ sequence common. So, presenting this common sequence as a significant pattern for node 3 make a good abstraction of descendant execution paths of node 3. To mine this sequential patterns, we implement PrefixSpan \cite{han2001prefixspanSequentialPatterns} sequential pattern mining algorithm. If we provide a collection of execution paths to PrefixSpan, it gives a significant pattern analyzing the collections. PrefixSpan creates a prefixed based projection database to find sequential patterns efficiently.
 
 \section{Experimental Design}
-\label{evaluation}
+\label{hla2:evaluation}
 This section will discuss research questions that drive this study, how we collected our subject systems, what criteria were considered, and how we designed our exploratory case study. 
 
 \subsection{Research Questions}
