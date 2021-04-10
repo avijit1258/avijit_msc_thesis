@@ -80,9 +80,7 @@
 
 % ABSTRACT
 \abstract{
-New contributors to open source projects struggle to comprehend a software system due to lack of domain knowledge, and proper documentation which hinders growth of open source projects. Similarly, new members of a software team can struggle to locate features if proper software engineering principals are not practiced in the team. Reading through code, finding relevant classes, and files take a significant portion of time from the time required to perform a specific task. Having a good tool support for this code browsing activity can reduce a lot of human effort and increase overall developer productivity. To help program comprehension models, research on building hierarchical abstraction of a software system from call graph is going on. As call graphs can be difficult to comprehend for a larger code-base, the idea is to find execution scenarios and cluster them together by concentrating the information in the code-base. Later, different techniques are applied to label nodes in the concept cluster tree. In this thesis, we focus on static call graphs for creating hierarchical abstraction tree as it clusters all possible program scenarios and group similar scenarios together. First, to advance existing work we introduced new information retrieval techniques alongside human involved evaluation. Second, from our observation we introduced two type of information to abstraction nodes for better understanding of the nodes. Finally, we introduced an interactive software tool which can be used to browse the code-base in a guided way by targeting specific unit of the source code.     
-
-% State the problem, your approach and solution, and the main contributions of the paper. Include little if any background and motivation. Be factual but comprehensive. The material in the abstract should not be repeated later word for word in the paper.
+New contributors to open source projects struggle to comprehend a software system due to lack of domain knowledge, and proper documentation which hinders growth of open source projects. Similarly, new members of a software team can struggle to locate features if proper software engineering principals are not practiced in the team. Reading through code, finding relevant classes, and files take a significant portion of time from the time required to perform a specific task. Having a good tool support for this code browsing activity can reduce a lot of human effort and increase overall developer productivity. To help program comprehension models, research on building hierarchical abstraction of a software system from call graph is going on. A call graph is a visual representation of caller-callee relationships between different methods of a software project. As call graphs can be difficult to comprehend for a larger code-base, the idea is to find execution scenarios from call graph and then cluster them together by concentrating the information in the code-base. Later, different techniques are applied to label nodes in the concept cluster tree. In this thesis, we focus on static call graphs for creating hierarchical abstraction tree as it clusters all possible program scenarios and group similar scenarios together. Previous work on static call graph clusters execution paths and uses only one information retrieval technique without any feedback from developers. First, to advance existing work, we introduced new information retrieval techniques alongside human involved evaluation. Second, from our observation we introduced two types of information (text description and execution patterns) to abstraction nodes for better insight on what execution scenarios  they cover. Finally, we introduced an interactive software tool which can be used to browse the code-base in a guided way by targeting specific unit of the source code.     
 
 }
 
@@ -98,14 +96,14 @@ New contributors to open source projects struggle to comprehend a software syste
 % line.
 \dedication{
 
-I dedicate this thesis to my mother Bina Bhattacharjee, my father Arun Kumar Bhattacharjee and my younger brother Bishwajit Bhattacharjee, who always believed in my ability and inspired me to become the best version of myself.
+I dedicate this thesis to my mother Bina Bhattacharjee, my father Arun Kumar Bhattacharjee and my younger brother Bishwajit Bhattacharjee, who always believed in me and inspired me to become the best version of myself.
 }
 
 % LIST OF ABBREVIATIONS - Sample  
 % If you don't want a list of abbreviations, comment the following 4 lines.
-\loa{\abbrev{SCUBA}{Self Contained Underwater Breathing Apparatus}
-\abbrev{LOF}{List of Figures}
-\abbrev{LOT}{List of Tables}
+\loa{\abbrev{CCT}{Concept Cluster Tree}
+\abbrev{EP}{Execution Path}
+\abbrev{IR}{Information Retrieval}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -197,6 +195,7 @@ I dedicate this thesis to my mother Bina Bhattacharjee, my father Arun Kumar Bha
 \begin{appendices}
 
 \chapter{Simple Calculator program to demonstrate the clustering approach}
+\label{appendix:calculator}
 
 \lstinputlisting{appendix/calculator.py}
 
