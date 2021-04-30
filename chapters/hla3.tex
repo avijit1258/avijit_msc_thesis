@@ -10,11 +10,20 @@
 \end{itemize}
 
 \section{Human-subject Study}
-To evaluate the effectiveness of HCPC, we contacted with scidatamanager development team. We have collected their source code to analyze by our system. We have invited the developers of the scidatamanager project to validate whether HCPC can be helpful for getting overview of a software system and accomplish a specific software maintenance task.
+To evaluate the effectiveness of HCPC, we contacted with \emph{scidatamanager} development team. We have collected their source code to analyze by our system. We have invited the developers of the \emph{scidatamanager} project to validate whether HCPC can be helpful for getting overview of the \emph{scidatamanager} and accomplish a specific software maintenance task.
 \subsection{Study Design}
+The interview with developers are conducted remotely via Skype. The interview process was divided into four steps:
+\begin{itemize}
+    \item \emph{Introduction:} First, we brief each participants about our research. Then, we share our screen to show how to use HCPC tool. We demonstrate HCPC tool by exploring \emph{jupyter-client} project. We also discuss different components role to help program comprehension. Later, we asked the participants to go to a specific URL where our application is hosted and share their screen. We informed participants about two parts of the study.   
+    \item \emph{Feedback on getting overview (RQ1):} In this phase, we asked the participants to explore the Cluster tree alongside different components like Node summary, Execution patterns. We requested them to check whether they can get overview of the \emph{scidatamanager} project. We encouraged the participants to express their thought while they explore different parts of the system. At the same time, we observe the participants interaction with the system and noted any feedback provided by them. When they explored the tree, we asked them whether the keywords and groups provide any reasonable clue about what the system does. Similarly, we asked them about their opinion on Node summary and Execution Patterns. We also inquired whether they have any suggestion or expectation on the components to be more helpful.
+    
+    
+    \item \emph{Effectiveness of finding help for specific task (RQ2):} After we complete the second step, we move on to the third phase. In this step, we asked the participants to use the search option to find relevant nodes in the cluster tree and see whether they can find any help to do any specific task. We have encouraged them to remember any recent feature or issue they solved and try to see whether the HCPC tool could help them for completing the tasks. We asked the participants about how helpful Node summary, Execution patterns and the highlight of execution paths can be for someone new to the codebase to accomplish the tasks.
+    \item \emph{Open discussion and closing:} At the end, we asked some open-ended questions about any suggestion and future features. The meetings lasted between 40 to 60 minutes. We ended the meeting thanking the participants for their valuable feedback and time.
 
-\subsection{Participants Selection}
-
+\end{itemize}
+\subsection{Participants and Subject System Selection}
+While observing the HCPC tool output for \emph{jupyter-client} project, we can relate the different nodes content to the components in \emph{jupyter-client} documentation. We decided to conduct the study on a subject system where the team members can participate in the study to evaluate HCPC tool performance on their known codebase. We contacted the \emph{scidatamanager} team whether they could share their source code and participate in the study to evaluate HCPC. The development team of the \emph{scidatamanager} project agreed to share the codebase and participate in the study. 
 \subsection{Results}
 
 \subsection{Threats to validity}
