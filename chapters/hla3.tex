@@ -2,6 +2,11 @@
 
 \section{Approach}
 
+\begin{algorithm}
+
+\end{algorithm}
+
+
 \section{Evaluation}
 
 \begin{itemize}
@@ -25,17 +30,63 @@ The interview with developers are conducted remotely via Skype. The interview pr
 \subsection{Participants and Subject System Selection}
 While observing the HCPC tool output for \emph{jupyter-client} project, we can relate the different nodes content to the components in \emph{jupyter-client} documentation. We decided to conduct the study on a subject system where the team members can participate in the study to evaluate HCPC tool performance on their known codebase. We contacted the \emph{scidatamanager} team whether they could share their source code and participate in the study to evaluate HCPC. The development team of the \emph{scidatamanager} project agreed to share the codebase and participate in the study. 
 \subsection{Results}
+\textbf{Answering RQ1.} Participants mostly agreed that the HCPC tool can help getting overview of their project. When we asked the participants, they started to explore the abstraction tree by carefully observing the keywords for each node and expanding to child nodes. The participants agreed that high-level nodes provide hint to the features in their project. For example, participant P3 said, \emph{``I can relate to different basic components from high level nodes. If someone new joins the team, they can start from top nodes and see the path patterns for getting most frequent behaviour and then explore the code-base easily."} Participants appreciated the node summary as it states in plain text what are the purposes of the keywords in the project. Participants also find that when they see node summary for deeper nodes, the summary becomes more precise for specific features. 
+According to participant P1, \emph{`` This part is helpful as it states in natural texts instead of a few words. Another interesting fact about the summary is when going deeper the summary became more precise.''} While exploring the execution patterns, we observed that participants find it helpful to know some frequent call sequences in specific nodes. However, participant P2, P3 suggested that having the frequency with the patterns would be interesting to know for understanding the importance. 
+
+In summary, \textbf{Participants find HCPC tool helpful for getting overview of their software system with node title, summary and execution patterns.} According to their final feedback for comprehending overview, they pointed out that HCPC tool has the potential to decrease get started time for a project. According to participant P1, they believe  it can help to decrease getting started time around 50\%-60\%.
+
+\textbf{Answering RQ2.} Participants find it useful to be able to search for specific keywords. From the interview, we observed that developers tried to highlight nodes for some recent work they have done or something they are familiar with to check how the HCPC is representing the relevant concepts. For example, participant P3 tried to highlight the nodes related to dataset publishing as it is one of the core feature of the project. While browsing the highlighted nodes and its supporting contents (node summary, execution patterns, execution paths), participant P3 identified that it is possible to know similar paths where the function is called. Another interesting observation by participant P2 is, \emph{`` I see the nodes can be searched by functions. In addition, I would love to see filters such as class, files.''} Participant P3 shared from their previous experience that sometimes they have to fix some issues of another project which not very well documented and they struggle a lot to figure out the abstraction patterns followed in the codebase. Both participant P3, P1 suggested using the search option to explore execution paths will be helpful to decrease time required for completing tasks in those scenarios. Another interesting observation from the interview is for some searches multiple nodes are highlighted which shows the specific functions being used in different scenarios. We observed participants was enthusiastic to know what are the different directions the function is being used by going deeper in the abstraction tree. In addition, participant P1 shared that many times they try to search the codebase with some keywords using the find option provided by the editor to retrieve relevant files. However, the search result does not show any order or how these class or methods are being called. They suggested that with the execution patterns and paths HCPC can help replacing the raw find workflow into more execution based search process. In summary, \textbf{the feedback from the participants and our observation during the interview it is viable that the search option of  HCPC has the potential to help in day-to-day software maintenance activities. } 
+
+% To Do using find button for searching which do not have any order
+
+During our open-ended questions and suggestions, we found valuable feedback for future development and adaptation of the HCPC tool. One important suggestion is to incorporate automatic comment generation techniques for methods which have no comments. This will be a valuable future work suggestion for our HCPC tool, as it will be helpful for projects which do not follow best practices. Another worth mentioning future work is suggested by participant P2 is to generate report of the abstraction structure where developers can edit the components name according to their understanding from the HCPC tool. These report can be used as a documentation of the project structure from static execution perspective. In addition, participants suggested to enable the option to export projects from GitHub which will be useful for quickly exploring a new codebase. From the above discussion, \textbf{we can conclude that HCPC tool can help to get overview of a software project from static execution perspective and can be used to help doing a specific task in hand.}
+
+
+% TODO
+% github, report generation 
+
 
 \subsection{Threats to validity}
 
-\section{Implementation \& Interface}
 
+
+\section{Implementation }
+In this section, we briefly highlight different parts of our implementation as shown in Figure \ref{fig:architecture}.
+
+\begin{enumerate}
+    \item We clone the source code from GitHub in a temporary folder. The source code will be used in the next phase by Python static code analyzer.
+    \item We use Pyan~\cite{pyan} as static Python code analyzer. Pyan goes through all the \emph{*.py} files looking for which method calls which method. Pyan generates a text file  which encodes all the methods with numbers and then contains which method calls which method. We generate static call graph using NetworkX~\cite{networkx} with the caller-callee relationships generated by Pyan.
+    
 \begin{figure*}[h]
-  \centering
-  \includegraphics[width=\columnwidth]{figures/hla3/hla3_implementation.png}
-  \caption{Architecture of HCPC tool }~\label{fig:architecture}
+\centering
+\includegraphics[width=\columnwidth]{figures/hla3/hla3_implementation.png}
+\caption{Architecture of HCPC tool }~\label{fig:architecture}
 \end{figure*}
 
+    \item We generate execution paths from the call graph created in previous step.
+Execution paths are grouped using Agglomerative Hierarchical Clustering~(AHC) algorithm provided by Scipy~\cite{scipy} library with \emph{ward} method as distance metric. We have a binary tree structure where leaf nodes are execution paths and other nodes are clusters at different levels. We call these cluster nodes as abstraction nodes. The abstraction nodes have collection of execution paths. For each abstraction node, we generate three properties. For each node, we create node title by applying information retrieval techniques ( Scikit-learn~\cite{scikit-learn} for TFIDF and Gensim~\cite{gensim} for LDA, LSI ) on the method names of all execution paths of a node. Then we produce node summary by summarizing (TextRank by Gensim) method comments of all the execution paths of the node. Last we generate execution patterns by pattern mining among the execution paths of the node~(PrefixSpan \cite{prefixspan}). We write all the node data in a text file named with the project name. Data is written in JSON format where each node is keyed with their ID and they have parent\_id, node title, node summary, execution patterns and execution paths associated with them. 
+    \item We have Flask server for interacting with front-end. Client requests which subject system they want to explore and the server returns JSON response with the abstraction tree. 
+    \item For the interface of our web application, we have used HTML, CSS, and JQuery. When a specific node is right-clicked, detail information about the node is filled to the node details panel.
+    \item We used GoJS for building the abstraction tree diagram. Each abstraction  is a GoJS node and different properties of the abstraction nodes are binded to GoJS nodes. 
+
+\end{enumerate}
+
+
+\section{Interface}
+
+In this section, we will discuss the different components of our HCPC tool shown in Figure \ref{fig:interface}.
+
+\begin{itemize}
+    \item \textbf{Abstract Tree Panel(A).} In the panel, the main abstraction tree is presented. The root nodes are presented vertically which can be possible to expand with their child nodes. By right clicking the mouse on a node will load different information of the abstraction node in the right side of the interface.
+    \item \textbf{Number of execution paths(B).} As each node in the abstraction tree are a collection of execution paths, we show the number of execution paths for a selected node in this element.
+    \item \textbf{Files (C).} In the element, we show the unique files of all the methods of the execution paths belong to.
+    \item \textbf{Node summary (D).} In the element, we have provided natural text description of a node. When developers select a node, the text description of the node will appear in the element. 
+    \item \textbf{Execution Patterns (E).} In the element, for a selected abstraction node, frequent function call patterns are presented with the file they are associated with. In the current setting, top-10 frequent execution patterns are shown. 
+    
+    \item \textbf{Execution paths (F).} In the element, we show five execution paths of a selected abstraction node. The execution paths complement the execution patterns by showing a glimpse of the real execution paths. Moreover, when a specific method is searched, the execution paths with the searched method is presented instead first five methods.
+    
+    \item \textbf{ Node label technique and search panel (G).} The panel has three drop-down boxes. First, developers can select which subject system they want to explore. Second, they can choose which technique to be used for labeling the nodes in abstraction tree. Third, this drop-down box is search enabled and it helps to highlight the nodes which have the searched method in their execution paths.
+\end{itemize}
 
 \begin{figure*}[h]
   \centering
@@ -83,3 +134,5 @@ Next, it is possible to browse the tree by focusing on a specific method. In fig
 \end{itemize}
 
 From above information provided by the tool, we can know how the shutdown\_all method works. Also we know that kernel object has different kind of channels for communication such as iopub, stdin.  
+
+\section{Conclusion}
