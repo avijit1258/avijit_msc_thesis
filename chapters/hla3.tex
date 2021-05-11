@@ -2,16 +2,85 @@
 
 \section{Approach}
 
-\begin{algorithm}
 
+\begin{algorithm}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+
+    \underline{Generate\_node\_summary} 
+    
+    \Input{execution\_paths, function\_id\_to\_comment}
+    \Output{node\_summary}
+    all\_comments = ` '\;
+    \For{execution\_path \textbf{in} execution\_paths}
+    {
+        \For{function\_id \textbf{in} execution\_path}
+        {
+            all\_comments += function\_id\_to\_comment[function\_id]\;
+        }
+    }
+    
+    node\_summary = summarize(all\_comments)\; \tcp{summarize by Gensim}
+    \textbf{return} node\_summary
+    \caption{Generate node summary from execution paths of an abstraction node}
+    \label{alg:node_summary}
+\end{algorithm}
+
+\begin{algorithm}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    
+    \underline{Generate\_Execution\_Patterns} 
+    
+    \Input{execution\_paths}
+    \Output{execution\_patterns}
+    NUMBER\_OF\_PATTERNS = 15\;
+    ps = PrefixSpan(execution\_paths)\;
+    top\_patterns = ps.topk(NUMBER\_OF\_PATTERNS)\; 
+    
+    \textbf{return} top\_patterns\;
+    \caption{Generate node summary from execution paths of an abstraction node}
+    \label{alg:node_summary}
+\end{algorithm}
+
+
+
+\begin{algorithm}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    
+    \underline{Compare\_execution\_paths} 
+    
+    \Input{ep1, ep2}
+    \Output{similarity\_score}
+    \tcp{method\_pairs returns all the two lenghth consecutive pairs from execution paths}
+    ep1\_pairs = method\_pairs(ep1)\; 
+    ep2\_pairs = method\_pairs(ep2)\;
+    union = len(ep1\_pairs) + len(ep2\_pairs)\;
+    intersection = 0\;
+    
+    \For{$i\gets0$ \KwTo $len(ep1\_pairs)$ }{
+        \For{$j\gets0$ \KwTo $len(ep2\_pairs)$ }{
+            
+            \If{ep1\_pairs[i] == ep2\_pairs[j]}{
+                intersection += 1 \;
+                ep2\_pairs.pop(j)\;
+                \textbf{break}\;
+            }
+        }
+    }
+    \textbf{return} ( 2 * intersection) / union
+    
+    \caption{Strike\_A\_Match algorithm}
+    \label{alg:strike_a_match}
 \end{algorithm}
 
 
 \section{Evaluation}
-
+We want to evaluate the effectiveness of HCPC for helping developers comprehend a software project. We address two research questions:
 \begin{itemize}
-    \item RQ1: To what extent developers agree with our approach result for getting overview of a project?
-    \item RQ2: How helpful our approach to understand relevant high-level concepts targeting a low-level source code?
+    \item \textbf{RQ1:} To what extent developers agree with our approach for getting overview of a project?
+    \item \textbf{RQ2:} How helpful our approach to understand relevant high-level concepts targeting a low-level source code?
 \end{itemize}
 
 \section{Human-subject Study}
@@ -47,7 +116,10 @@ During our open-ended questions and suggestions, we found valuable feedback for 
 
 
 \subsection{Threats to validity}
+To address external validity, we have collected a software project which is developed in industry settings instead of working with a sample project. We have selected a industry project to ensure generability to some extent. Although the subject system is written in Python, our approach will work with other static typed language.
 
+To address internal validity, we have tried to minimize any communication issue by repeating the feedback when in doubt. We asked open-ended questions at the end so that participants are able to provide feedback outside the questions asked. 
+% To Do communication, subject generability industry project, language, open ended question
 
 
 \section{Implementation }
@@ -136,3 +208,5 @@ Next, it is possible to browse the tree by focusing on a specific method. In fig
 From above information provided by the tool, we can know how the shutdown\_all method works. Also we know that kernel object has different kind of channels for communication such as iopub, stdin.  
 
 \section{Conclusion}
+
+In this study, we have proposed two new approaches for improving hierarchical abstraction tree for program comprehension. First, we changed the similarity metrics for comparing execution paths. In previous studies, Jaccard distance is used which only considers the content not the sequence. Therefore, in this study, we have changed the similarity metrics to strike\_a\_match algorithm. Second, we changed the clustering approach for more precise grouping of the execution paths. Previous studies suggested to use the hierarchy tree for browsing. However, from our previous studies we found it is difficult when going to deeper nodes are required as the tree expand step by step. Instead we used cluster flattening technique where all the clusters are merged within a specific distance. We have built an interactive system to explore the new abstraction tree with supporting information alongside searching the tree. To evaluate, the system we have conducted a human subject study. We find that our system can be useful for getting acquainted with a software project and it can also help to accomplish tasks in hand.  
