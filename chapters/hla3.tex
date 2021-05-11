@@ -1,7 +1,7 @@
 \section{Motivation}
 
 \section{Approach}
-
+\label{hla3:approach}
 
 \begin{algorithm}
     \SetKwInOut{Input}{Input}
@@ -76,15 +76,18 @@
 \end{algorithm}
 
 
-\section{Evaluation}
+
+\section{Human-subject Study}
+\label{hla3:human_study}
+To evaluate the effectiveness of HCPC, we contacted with \emph{scidatamanager} development team. We have collected their source code to analyze by our system. We have invited the developers of the \emph{scidatamanager} project to validate whether HCPC can be helpful for getting overview of the \emph{scidatamanager} and accomplish a specific software maintenance task.
+
+\subsection{Research Questions}
+\label{hla3:evaluation}
 We want to evaluate the effectiveness of HCPC for helping developers comprehend a software project. We address two research questions:
 \begin{itemize}
     \item \textbf{RQ1:} To what extent developers agree with our approach for getting overview of a project?
     \item \textbf{RQ2:} How helpful our approach to understand relevant high-level concepts targeting a low-level source code?
 \end{itemize}
-
-\section{Human-subject Study}
-To evaluate the effectiveness of HCPC, we contacted with \emph{scidatamanager} development team. We have collected their source code to analyze by our system. We have invited the developers of the \emph{scidatamanager} project to validate whether HCPC can be helpful for getting overview of the \emph{scidatamanager} and accomplish a specific software maintenance task.
 \subsection{Study Design}
 The interview with developers are conducted remotely via Skype. The interview process was divided into four steps:
 \begin{itemize}
@@ -123,6 +126,7 @@ To address internal validity, we have tried to minimize any communication issue 
 
 
 \section{Implementation }
+\label{hla3:implementation}
 In this section, we briefly highlight different parts of our implementation as shown in Figure \ref{fig:architecture}.
 
 \begin{enumerate}
@@ -145,7 +149,7 @@ Execution paths are grouped using Agglomerative Hierarchical Clustering~(AHC) al
 
 
 \section{Interface}
-
+\label{hla3:interface}
 In this section, we will discuss the different components of our HCPC tool shown in Figure \ref{fig:interface}.
 
 \begin{itemize}
@@ -168,45 +172,64 @@ In this section, we will discuss the different components of our HCPC tool shown
 
 
 \section{Guide to use HCPC}
-The tool can be used in two ways. First, a developer new to the code-base can load the abstraction tree which start with the root node. In the right side panel, for each node the number of execution paths, a brief natural text summary, and few frequent execution patterns are presented. Therefore, the developer can start first by observing summary, patterns of the root node. Now, the child nodes of the root node can be expanded and  similarly explored by observing corresponding node summary and patterns. The developer can continue this way according to their need to get acquainted with the coda-base behavior and high-level concepts in the code-base.
+\label{hla3:use_guide}
+The tool can be used in two ways. First, a developer new to the code-base can load the abstraction tree which start with top abstraction  nodes. In the node details panel, for each node the number of execution paths, a brief natural text summary, and few frequent execution patterns are presented. Therefore, the developer can start first by observing summary, patterns of the top nodes. Now, the child nodes of the top nodes can be expanded and  similarly explored by observing corresponding node summary and patterns. The developer can continue this way according to their need to get acquainted with the coda-base behavior and high-level concepts in the code-base.
 
-Second, a new contributor to a open source project can utilize the tool to understand high-level concepts related to a specific method. Developers first start from looking to open issues of a repository to find something work on. The issues are natural text description which provides information regarding a bug or a feature enhancement request. Developers can identify few keywords and use our tool to find matching methods relevant to the keywords. Next, a specific method can be selected to highlight relevant nodes in the tree. The difference between the first approach here is developers will be able to browse the tree with focus to the selected method. The node titles relevant to selected method will be highlighted so that the developer can expand their child nodes. By this way, the developer can start from the high-level concept to low-level source code related concepts for a specific method. By iterating this process, the developer can grasp high-level domain knowledge (with comment summary and IR techniques on function names) alongside insight into program execution scenarios which decreases the overhead due to lack of domain knowledge in the code-base. 
+Second, a new contributor to a open source project or someone new to a team can utilize the tool to understand high-level concepts related to a specific method. Developers first start from looking to open issues of a repository to find something work on. The issues are natural text description which provides information regarding a bug or a feature enhancement request. Developers can identify few keywords and use our tool to find matching methods relevant to the keywords. Next, a specific method can be selected to highlight relevant nodes in the tree. The difference between the first approach here is developers will be able to browse the tree with focus to the selected method. The node titles relevant to selected method will be highlighted so that the developer can expand their child nodes. By this way, the developer can start from the high-level concept to low-level source code related concepts for a specific method. By iterating this process, the developer can grasp high-level domain knowledge (with comment summary and IR techniques on function names) alongside insight into program execution scenarios which decreases the overhead due to lack of domain knowledge in the code-base. 
 
-\section{Graphical demo of the tool} 
-We have picked \emph{jupyter-client}\footnote{https://github.com/jupyter/jupyter\_client} as the subject system to show how the tool can be used following the two above mentioned techniques. To discuss the effectiveness of our tool using \emph{jupyter-client}, first we will discuss high level functionalities of \emph{jupyter-client} from their documentation. Later, we will present the information provided by our tool and discuss whether our tool provides similar or more information to comprehend the \emph{jupyter-client} project. \emph{jupyter-client} has three components. First, \emph{kernelspec} deals with specify different type of kernels from predefined files. Second, kernel manager which is responsible for start, stop and signaling kernels for different scenarios. Third, kernel client which is responsible for communicating with kernels for code execution and other tasks \footnote{https://jupyter-client.readthedocs.io/en/stable/index.html}. From the above components we can get an abstract idea of the features of \emph{jupyter-client}. Now, we will discuss the high-level features suggested by HCPC tool. Below we have listed few high-level features of the \emph{jupyter-client} project. The features are found by expanding the tree to three depth. More specific features are possible to get by diving deep into the tree.
+\section{Exploring HCPC for \emph{jupyter\_client} project} 
+\label{hla3:case_study}
+\textbf{Exploring overview. } We have picked \emph{jupyter-client}\footnote{https://github.com/jupyter/jupyter\_client} as the subject system to show how the tool can be used following the two above mentioned techniques. To discuss the effectiveness of our tool using \emph{jupyter-client}, first we will discuss high level functionalities of \emph{jupyter-client} from their documentation. Later, we will present the information provided by our tool and discuss whether our tool provides similar or more information to comprehend the \emph{jupyter-client} project. \emph{jupyter-client} has three components. First, \emph{kernelspec} deals with specify different type of kernels from predefined files. Second, kernel manager which is responsible for start, stop and signaling kernels for different scenarios. Third, kernel client which is responsible for communicating with kernels for code execution and other tasks \footnote{https://jupyter-client.readthedocs.io/en/stable/index.html}. From the above components we can get an abstract idea of the features of \emph{jupyter-client}. Now, we will discuss the high-level features suggested by HCPC tool. Below we have listed few high-level node summary of the \emph{jupyter-client} project and discuss them with respect to the documentation.
 
 \begin{figure*}[h]
   \centering
-  \includegraphics[width=\columnwidth]{figures/hla3/tool_overview_jupyter.png}
+  \includegraphics[width=\columnwidth]{figures/hla3/hla3_jupyter_overview.png}
   \caption{HCPC tool overview for jupyter\_client project }~\label{fig:tool_overview_jupyter_client}
 \end{figure*}
 
 \begin{itemize}
-    \item Request kernel info. Request comm info. Tab complete text in the kernel's namespace. Get metadata information about an object in the kernel's namespace. Ask the kernel whether some code is complete and ready to execute.
-    \item Forgets randomly assigned port numbers and cleans up the connection file. Restarts a kernel with the arguments that were used to launch it. Write connection info to JSON dict in self.connection\_file. Restarts a kernel with the arguments that were used to launch it.
-    \item Request kernel info. Given a message or header, return the header. Request comm info. Tab complete text in the kernel's namespace. wrapper for doing common steps for validating an execution request. Pass a message to the ZMQ socket to send. message format.
-    \item Send a shutdown request via control channel. Attempts to stop the kernel process cleanly. Restarts a kernel with the arguments that were used to launch it.
+    \item \emph{ Restarts a kernel with the arguments that were used to launch it. Prepares a kernel for startup in a separate process. Write connection info to JSON dict in self.connection\_file. replace templated args (e.g. Verify realpath is used when formatting connection file). Walks env entries in templated\_env and applies possible substitutions from current env.} 
+    
+    From this node summary, we can understand \emph{jupyter\_client} restarting kernels, writing connection information to file and creates different kernel environments.
+    
+    \item \emph{Create a zmq Socket and connect it to the kernel. Start a new kernel, and return its Manager and Client. return zmq Socket connected to the Control channel. Get the stdin channel object for this kernel. Wait for kernel shutdown, then kill process if it doesn't shutdown. Pass a message to the ZMQ socket to send. return zmq Socket connected to the Heartbeat channel. Get the shell channel object for this kernel. Get the iopub channel object for this kernel. Get the control channel object for this kernel. Sends a signal to the process group of the kernel (this. Stops all the running channels for this kernel. return zmq Socket connected to the Shell channel. return zmq Socket connected to the IOPub channel. return zmq Socket connected to the StdIn channel.} 
+    
+    From this node summary, we observe that the \emph{jupyter\_client} project has ZMQ socket which helps with message communication. It has different channels like iopub, stdin, shell and Heartbeat channel.
+    
+    \item \emph{load the IPs that point to this machine. populate local and public IPs from flat list of all IPs. return the IP addresses that point to this machine.} 
+    
+    From this node summary, we can comprehend that the \emph{jupyter\_client} project also deals with public, local IP address of a machine. 
+
 \end{itemize}
 
-From the above text blocks, we can understand that \emph{jupyter-client} is relevant to working with kernels, it uses ZMQ socket to communicate with kernels, and work with kernel information. 
+From the above text blocks, we can understand that \emph{jupyter-client} is relevant to working with kernels, it uses ZMQ socket to communicate with kernels, and deals with IP addresses of a machine. In addition to the above node summaries when developers see the execution patterns, they can very quickly learn about the domain knowledge of \emph{jupyter\_client} project.
 
-Next, it is possible to browse the tree by focusing on a specific method. In figure \ref{fig:tool_shutdown_all}, we can see the nodes in the tree are marked to indicate they are relevant to shutdown\_all method. Developers can investigate the nodes marked to understand relevant features of shutdown\_all method. 
+\textbf{Exploring for specific task. } Next, it is possible to browse the tree by focusing on a specific method. In Figure \ref{fig:tool_write_connection_file}, we can see the nodes in the tree are marked to indicate they are relevant to write\_connection\_file method. Developers can investigate the nodes marked to understand relevant concepts of write\_connection\_file method. In Figure \ref{fig:tool_write_connection_file}, at the bottom of the tree we can see execution paths which have write\_connection\_file. At the right side of Figure \ref{fig:tool_write_connection_file}, we can observe node summary and execution patterns for the red marked nodes for better understanding of our target concept. Below we have mentioned and discussed few significant node summary relevant to write in connection file.  
 
 \begin{figure*}[h]
   \centering
-  \includegraphics[width=\columnwidth]{figures/hla3/tool_shutdown_all.png}
-  \caption{HCPC tool when focusing to find features related to shutdown\_all method }~\label{fig:tool_shutdown_all}
+  \includegraphics[width=\columnwidth]{figures/hla3/hla3_write_connection_file.png}
+  \caption{HCPC tool when focusing on write\_connection\_file method }~\label{fig:tool_write_connection_file}
 \end{figure*}
 
-
+% Discuss write_connection_file
 \begin{itemize}
-    \item check that a kernel id is valid. Interrupts the kernel by sending it a signal. Wait for kernel shutdown, then kill process if it doesn't shutdown. Shutdown all kernels. Sends a signal to the process group of the kernel (this. Restarts a kernel with the arguments that were used to launch it. Attempts to stop the kernel process cleanly. Get the single KernelManager object for a kernel by its uuid.
-    \item Get the hb channel object for this kernel. Get the stdin channel object for this kernel. Stops all the running channels for this kernel. Get the iopub channel object for this kernel. Get the control channel object for this kernel. Get the shell channel object for this kernel.
+    \item \emph{Create a zmq Socket and connect it to the kernel. return the IP addresses that point to this machine. Write connection info to JSON dict in self.connection\_file. Restarts a kernel with the arguments that were used to launch it. Restarts a kernel with the arguments that were used to launch it. Pass a message to the ZMQ socket to send. Cleanup connection file *if we wrote it*. Given a message or header, return the header. Forgets randomly assigned port numbers and cleans up the connection file. Sends a signal to the process group of the kernel }
+    
+    From this node summary, we comprehend that in \emph{jupyter\_client} some concepts related to write in connection files are write connection info as JSON dict, cleanup of connection file and forgetting randomly assigned port numbers.
+    
+    \item \emph{ Restarts a kernel with the arguments that were used to launch it. Prepares a kernel for startup in a separate process. Write connection info to JSON dict in self.connection\_file. replace templated args (e.g. Verify realpath is used when formatting connection file. Walks env entries in templated\_env and applies possible substitutions from current env.}
+    
+    From this node summary, we comprehend that in \emph{jupyter\_client} some concepts related to write in connection files are restart kernel, creating environments and prepare a kernel startup in separate process.
+    
+    \item \emph{Load connection info from JSON dict in self.connection\_file. return ip for localhost (almost always 127.0.0.1) set up ssh tunnels, if needed.} 
+    
+    From this node summary, we comprehend that in \emph{jupyter\_client} some concepts related to write in connection files are set up ssh tunnel, loading connection info from file.
+    
     
 \end{itemize}
 
-From above information provided by the tool, we can know how the shutdown\_all method works. Also we know that kernel object has different kind of channels for communication such as iopub, stdin.  
-
+From above discussion with regard to write\_connection\_file method, we can see that HCPC helps to understand relevant concepts for a specific task. 
 \section{Conclusion}
 
 In this study, we have proposed two new approaches for improving hierarchical abstraction tree for program comprehension. First, we changed the similarity metrics for comparing execution paths. In previous studies, Jaccard distance is used which only considers the content not the sequence. Therefore, in this study, we have changed the similarity metrics to strike\_a\_match algorithm. Second, we changed the clustering approach for more precise grouping of the execution paths. Previous studies suggested to use the hierarchy tree for browsing. However, from our previous studies we found it is difficult when going to deeper nodes are required as the tree expand step by step. Instead we used cluster flattening technique where all the clusters are merged within a specific distance. We have built an interactive system to explore the new abstraction tree with supporting information alongside searching the tree. To evaluate, the system we have conducted a human subject study. We find that our system can be useful for getting acquainted with a software project and it can also help to accomplish tasks in hand.  
