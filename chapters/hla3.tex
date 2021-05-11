@@ -1,7 +1,48 @@
+In this chapter, we introduce different clustering technique in Section \ref{hla3:approach}. Next, we present a  human-subject study of the developed HCPC tool in Section \ref{hla3:human_study}. In Section \ref{hla3:interface} and \ref{hla3:implementation}, we discuss the interface and implementation of the HCPC tool. Last, in Section \ref{hla3:use_guide} and \ref{hla3:case_study}, we discuss how to use HCPC tool for two use cases and present an example using \emph{jupyter\_client} project.
+
 \section{Motivation}
 
 \section{Approach}
 \label{hla3:approach}
+In this study, we have followed similar steps as study 1 and 2 except two changes. First, we have changed the similarity score from Jaccard distance to strike\_a\_match algorithm. Strike\_a\_match algorithm takes into account the contents of two list and the sequence they appear. On the contrary, Jaccard distance only considers the content of two list. To improve the clustering result, we have made the change in similarity metrics. Second, we have added one more step to reach the final hierarchical abstraction tree. Previously we have used the step by step tree returned by linkage algorithm. However, the linkage tree is not flexible for browsing. Therefore, we have used cluster flattening technique to get more flexible 5-6 depth tree. We discuss strike\_a\_match, node summary, execution pattern and cluster flattening technique in the below subsections. 
+
+\subsection{strike\_a\_match}
+In Algorithm \ref{alg:strike_a_match}, we provided the pseudo code for reproducing strike\_a\_match algorithm\footnote{http://www.catalysoft.com/articles/strikeamatch.html}. The methods takes input two list which is execution path one and two. The method returns a similarity score between 0 and 1 where 0 means no match and 1 means full match. In line 2-3, all method pairs in consecutive order are generated. In line 4, we calculate union value by summing length of the two generated pair lists. From line 6 to 14, we iterate over the pair lists and see if they match to calculate intersection value. When we find a match, we remove the pair from $ep2\_pairs$ to avoid considering the same match again. At last, we return the similarity score using union and intersection value. The method considers the order in addition to the content of two lists. 
+
+
+\begin{algorithm}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    
+    \underline{Compare\_execution\_paths} 
+    
+    \Input{ep1, ep2}
+    \Output{similarity\_score}
+    \tcp{method\_pairs returns all the two length consecutive pairs from execution paths}
+    ep1\_pairs = method\_pairs(ep1)\; 
+    ep2\_pairs = method\_pairs(ep2)\;
+    union = len(ep1\_pairs) + len(ep2\_pairs)\;
+    intersection = 0\;
+    
+    \For{$i\gets0$ \KwTo $len(ep1\_pairs)$ }{
+        \For{$j\gets0$ \KwTo $len(ep2\_pairs)$ }{
+            
+            \If{ep1\_pairs[i] == ep2\_pairs[j]}{
+                intersection += 1 \;
+                ep2\_pairs.pop(j)\;
+                \textbf{break}\;
+            }
+        }
+    }
+    \textbf{return} ( 2 * intersection) / union
+    
+    \caption{Strike\_A\_Match algorithm}
+    \label{alg:strike_a_match}
+\end{algorithm}
+
+\subsection{Node summary}
+
+In Algorithm \ref{alg:node_summary}, we provided the pseudo code for generating node summary for each abstraction node. The two input of the method are execution paths and function\_id to comment dictionary. The execution paths is a 2D list where each row corresponds to a execution path and cells contain function id. The second argument is a dictionary where function id are mapped to their first line docstring comment. In line 3 - 7, we iterate through all the execution paths and all functions in a execution path. We add all the comments to $all\_comments$ variable for use in summarize. In line 8, we provoke the summarize method from Gensim~\cite{gensim} library which by default returns one-third of the $all\_comments$ as summary using  TextRank~\cite{mihalcea2004textrank} algorithm. We have tried with different ratio of input to summary ratio and found the default settings sufficient for our purpose.
 
 \begin{algorithm}
     \SetKwInOut{Input}{Input}
@@ -26,6 +67,9 @@
     \label{alg:node_summary}
 \end{algorithm}
 
+\subsection{Execution patterns}
+In Algorithm \ref{alg:execution_patterns}, we present pseudo code for generating execution patterns. The method takes execution paths as input and outputs frequent patterns found by analyzing all the execution paths. For our approach, we have mined top-15 frequent patterns. Execution paths is a list of list where the inside list is list of function ids which can be called sequentially. We use the PrefixSpan algorithm which mines frequent pattern from a set of lists. We use the topk method to get top-15 execution patterns. We use default settings for maximum length and minimum length of the patterns. 
+
 \begin{algorithm}
     \SetKwInOut{Input}{Input}
     \SetKwInOut{Output}{Output}
@@ -40,41 +84,13 @@
     
     \textbf{return} top\_patterns\;
     \caption{Generate node summary from execution paths of an abstraction node}
-    \label{alg:node_summary}
+    \label{alg:execution_patterns}
 \end{algorithm}
 
 
+\subsection{Cluster flatten technique}
 
-\begin{algorithm}
-    \SetKwInOut{Input}{Input}
-    \SetKwInOut{Output}{Output}
-    
-    \underline{Compare\_execution\_paths} 
-    
-    \Input{ep1, ep2}
-    \Output{similarity\_score}
-    \tcp{method\_pairs returns all the two lenghth consecutive pairs from execution paths}
-    ep1\_pairs = method\_pairs(ep1)\; 
-    ep2\_pairs = method\_pairs(ep2)\;
-    union = len(ep1\_pairs) + len(ep2\_pairs)\;
-    intersection = 0\;
-    
-    \For{$i\gets0$ \KwTo $len(ep1\_pairs)$ }{
-        \For{$j\gets0$ \KwTo $len(ep2\_pairs)$ }{
-            
-            \If{ep1\_pairs[i] == ep2\_pairs[j]}{
-                intersection += 1 \;
-                ep2\_pairs.pop(j)\;
-                \textbf{break}\;
-            }
-        }
-    }
-    \textbf{return} ( 2 * intersection) / union
-    
-    \caption{Strike\_A\_Match algorithm}
-    \label{alg:strike_a_match}
-\end{algorithm}
-
+In previous studies, we have used step-by-step clustering tree as hierarchical abstraction tree. However, for $n$ number of execution paths, the abstraction tree will have $2n - 1$ nodes which is not practical for medium to large projects. Therefore, we processed the cluster tree by using cluster flattening. We flatten the cluster tree first by a larger distance which will return very few number of clusters. Next, we decrease the distance which increases the number of unique clusters. We continue the process for having five steps of clustering. We also memorize the previous clusters to link the abstraction tree step-by-step.
 
 
 \section{Human-subject Study}
