@@ -172,21 +172,21 @@ To get significant patterns for node 3 in Figure \ref{fig:tree_structure}, we ha
 This section will discuss research questions that drive this study, how we collected our subject systems, what criteria were considered, and how we designed our exploratory case study. 
 
 \subsection{Research Questions}
-In this paper, we tried to improve the comprehensiveness of the abstraction of nodes. First, we split function names to get words in the names so that TFIDF, LDA, and LSI methods perform more naturally. There is also another benefit of using words in method names as they will be fixed length. We investigate how effective node names using the word variant in our RQ1. Besides, we attach a natural text summary for each node using the docstring of functions, which consist of RQ2. Similarly, we generate significant patterns from execution paths to support node comprehension, and this is our RQ3. Finally, we investigate how merging the results of RQ1, RQ2, and RQ3 improve the abstraction tree in RQ4. 
+In this paper, we tried to improve the comprehensiveness of the abstraction of nodes. First, we split function names to get words so that TFIDF, LDA, and LSI methods perform naturally. There is also another benefit of using words in method names as they will be fixed length. We investigate how effective node names are using the word variant in our RQ1. Besides, we attach a natural text summary for each node using the docstring of functions, which consists of RQ2. Similarly, we generate significant patterns from execution paths to support node comprehension, and this is our RQ3. Finally, we investigate how merging the results of RQ1, RQ2, and RQ3 improves the abstraction tree in RQ4. 
 
 \begin{itemize}
     
-    \item \textbf{\texttt{RQ1}} How effective is word variation of TFIDF compared to method variation?
-    \item \textbf{\texttt{RQ2}} How comprehensive is natural text summary for abstraction nodes?
+    \item \textbf{\texttt{RQ1}} How effective is the word variation of TFIDF compared to method variation?
+    \item \textbf{\texttt{RQ2}} How comprehensive is the natural text summary for abstraction nodes?
     \item \textbf{\texttt{RQ3}} How effective are the mined patterns to comprehend abstraction nodes?
-    \item \textbf{\texttt{RQ4}} How effective comprehension of an abstraction node, if label, summary, and patterns used together?
+    \item \textbf{\texttt{RQ4}} How effective the comprehension of an abstraction node, if label, summary, and patterns used together?
 \end{itemize}
 
 \subsection{Dataset Collection}
-In this study, we have experimented with three subject systems. Source code of the subject systems are cloned from their Github repository. Pyan library is used to extract caller-callee relationships in trivial graph format (TGF). Next, we created a networkX graph object to iterate through the call graph and extract execution paths. At last, the ward linkage clustering algorithm is used to create a hierarchical abstraction tree. In table \ref{table:subject_systems}, we present the entry, exit nodes, line of code, number of execution paths. We choose our subject systems carefully to have three different sizes of execution paths as the number of execution paths determines how big the abstraction tree will be. We wanted to keep the size flexible for performing our analysis to find our proposed techniques' effectiveness. 
+In this study, we have experimented with three subject systems. We cloned the source code of the subject systems from their Github repository. We use The Pyan library to extract caller-callee relationships in trivial graph format (TGF). Next, we created a networkX graph object to iterate through the call graph and extract execution paths. At last, the ward linkage clustering algorithm is used to create a hierarchical abstraction tree. In table \ref{table:subject_systems}, we present the entry, exit nodes, line of code, number of execution paths. We choose our subject systems carefully to have three different number of execution paths as the number of execution paths determines how big the abstraction tree will be. We wanted to keep the size flexible for performing our analysis to find our proposed techniques' effectiveness. 
 
 \subsection{Case study design}
-To find the effectiveness of the proposed techniques, we carefully choose different abstraction nodes and their neighborhood. After that, we manually checked whether the label, summary, and mined patterns properly abstract and describe the system's high-level concepts. To verify whether the approaches properly support our claim, we manually browsed the source code of target systems to know the systems' high-level concepts. To minimize subjective bias, two of the co-authors of this paper differently analyzed the selected abstraction nodes and their neighbors. To generalize our findings to some extent, we have used three different subject systems so that our claim is acceptable.
+To find the effectiveness of the proposed techniques, we carefully choose different abstraction nodes and their neighbourhood. After that, we manually checked whether the label, summary and mined patterns suitably abstract and describe the system's high-level concepts. To verify whether the approaches properly support our claim, we manually browsed the source code of target systems to know the systems' high-level concepts. To minimize subjective bias, two of the co-authors of this paper differently analyzed the selected abstraction nodes and their neighbours. To generalize our findings to some extent, we have used three different subject systems so that our claim is acceptable.
 
 \begin{table*}% put at top of page if possible 
  \caption{3 Subject Systems with their No. Entry, Exit Nodes, LOC, Paths, And Date Retrieved}
@@ -214,7 +214,7 @@ No & URL & Name & Entry Nodes & Exit Nodes & LOC & Paths & Date retrieved\\
 \end{figure*}
 
 \subsection{ RQ1: Effectiveness of word variation labeling}
-To see the effectiveness of labeling, we manually picked the root node and its neighborhood. We explored a similar tree snippet for the three systems. In Figure \ref{fig:rq1_hla1}, we see root node 60 has the label \textit{lda pair get docstring jaccard}. From this label, one can guess that something related to docstring, jaccard distance, and topic modeling LDA occurs in the higher\_level\_abstraction subject system. An interesting thing to notice is that name of node 60 and 59 is the same. Although node 58, which is a child node of 60 has two new keywords py and view that indicate something related to Python file and view occurs inside the nodes' execution paths. On the other hand, if we see the name for node 60 using TFIDF method variant( \textit{pretty\_print\_leaf\_node bfs\_with\_parent mining\_sequential\_patterns id\_to\_sentence cluster\_view}) , we see that using method as unit for TFIDF is more comprehensible than using word as unit for TFIDF. Another benefit of TFIDF method variant is for node 60 and 59, it provides different names according to their execution paths. On the other side, the word variant of TFIDF gives the same name for node 60 and 59 because of over\-fitting. 
+To see the effectiveness of labelling, we manually picked the root node and its neighbourhood. We explored a similar tree snippet for the three systems. In Figure \ref{fig:rq1_hla1}, we see root node 60 has the label \textit{lda pair get docstring jaccard}. From this label, one can guess that something related to docstring, Jaccard distance, and topic modelling LDA occurs in the higher\_level\_abstraction subject system. An interesting thing to notice is that name of node 60 and 59 is the same. Although node 58 is a child node of 60, which has two new keywords py and view that indicate something related to Python file and view occurs inside the nodes' execution paths. On the other hand, if we see the name for node 60 using TFIDF method variant( \textit{pretty\_print\_leaf\_node bfs\_with\_parent mining\_sequential\_patterns id\_to\_sentence cluster\_view}) , we see that using method as unit for TFIDF is more comprehensible than using word as unit for TFIDF. Another benefit of TFIDF method variant is for node 60 and 59; it provides different names according to their execution paths. On the other side, the word variant of TFIDF gives the same name for nodes 60 and 59 because of over\-fitting.
 
 \begin{figure*}[tb]
   \centering
@@ -222,12 +222,13 @@ To see the effectiveness of labeling, we manually picked the root node and its n
   \caption{Snippet from subject system 2 (pyan)}~\label{fig:rq1_pyan1}
 \end{figure*}
 
-In figure \ref{fig:rq1_pyan1} shows that we have a snippet of the Pyan subject system's abstraction tree. Pyan~\cite{pyan} is an open-source software which can extract call graph from a Python project. From our general knowledge, we can expect the concepts related to source code. If we look at node 1272 at Figure \ref{fig:rq1_pyan1}, the name is \textit{c3 module label use idx}. Except for the module, other keywords are not that much expressive. For node 1268, we see keywords like class, node, namespace indicate that the node is relevant to processing source code. However, we can see a recurrent occurrence of the same name for node 1272, 1271, which is an over-fit situation. Name for node 1272, 1271 using method variant TFIDF are 
+In figure \ref{fig:rq1_pyan1} shows that we have a snippet of the Pyan subject system's abstraction tree. Pyan~\cite{pyan} is an open-source software which can extract call graph from a Python project. From our general knowledge, we can expect the concepts related to source code. If we look at node 1272 at Figure \ref{fig:rq1_pyan1}, the name is \textit{c3 module label use idx}. Except for the module, other keywords are not that much expressive. For node 1268, we see keywords like class, node, namespace indicate that the node is relevant to processing source code. However, we can see a recurrent occurrence of the same name for nodes 1272, 1271, which is an over-fit situation. Name for node 1272, 1271 using method variant TFIDF are 
 \textit{write\_edge  find\_filenames  DotWriter}, \textit{write\_edge TgfWriter DotWriter visit\_Assign}  which clearly indicates some hint what the nodes do. 
 
-In Figure \ref{fig:rq1_realTime1}, we have a snippet from our third subject system (Real-Time-Voice-Cloning \cite{realTime}). This open-source project can clone someone's voice from a clip of at least five seconds. So, this system's high-level functionalities can be converting wave length, processing audio, training model. The name of root node 806 is \textit{synthesize train synthesizer synthesize toolbox}. Here, train indicates training models, synthesize means processing audio signal, and toolbox indicates the tool system. For node 791, we see keywords like encoder, spec which indicates processing of signals. Using method name variant of TFIDF the name for node 806 and 791 are \textit{save\_wav encoder.audio discretized\_mix\_logistic\_loss profile\_noise encoder.visualizations}, \textit{current\_encoder\_fpath make\_spectrogram load\_preprocess\_wav normalize\_volume}. TFIDF method variant provides more contextual information from the name of node 806, 791. 
+In Figure \ref{fig:rq1_realTime1}, we have a snippet from our third subject system (Real-Time-Voice-Cloning \cite{realTime}). This open-source project can clone someone's voice from a clip of at least five seconds. So, this system's high-level functionalities can be converting wavelength, processing audio, training model. The name of root node 806 is \textit{synthesize train synthesizer synthesize toolbox}. Here, train indicates training models, synthesize means processing audio signal, and toolbox indicates the tool system. For node 791, we see keywords like encoder, spec which indicates processing of signals. Using method name variant of TFIDF the name for node 806 and 791 are \textit{save\_wav encoder.audio discretized\_mix\_logistic\_loss profile\_noise encoder.visualizations}, \textit{current\_encoder\_fpath make\_spectrogram load\_preprocess\_wav normalize\_volume}. TFIDF method variant provides more contextual information from the name of node 806, 791. 
 
-From the above manual investigation of node names using the method and word variant, it is evident that using method name variant provides more semantic abstraction. However, word variant provides a fixed-length  name. Yet, the output is ambiguous. So, We would recommend using method variant TFIDF to name or label an abstractio node.
+From the above manual investigation of node names using the method and word variant, it is evident that using method name variant provides more semantic abstraction. However, word variant provides a fixed-length  name. Yet, the output is ambiguous. So, We would recommend using method variant TFIDF to name or label an abstraction node.
+
 
 
 \begin{figure*}[tb]
@@ -239,17 +240,18 @@ From the above manual investigation of node names using the method and word vari
 
 
 \subsection{ RQ2: Natural text summary for abstraction nodes}
- Natural text is more comprehensive than a few keywords. Therefore, to support abstraction nodes' comprehension in a hierarchical tree, we propose to summarize the methods' docstring in all execution paths of the node. To keep the importance of each method, we used only the first line of the docstring. Also, from our manual analysis, it is evident that most of the time, the first line describes the function's purpose. Although for many cases, we found that docstring is absent. In those cases, we just omitted the method for generating summary. To answer our RQ2, we investigated the summary for nodes in three subject systems. 
+ Natural text is more comprehensive than a few keywords. Therefore, to support abstraction nodes' comprehension in a hierarchical tree, we propose to summarize the methods' docstring in all execution paths of the node. To keep the importance of each method, we used only the first line of the docstring. Also, from our manual analysis, it is evident that the first line describes the function's purpose most of the time. Although for many cases, we found that docstring is absent. In those cases, we just omitted the method for generating summary. To answer our RQ2, we investigated the summary for nodes in three subject systems. 
  
- The root node 60 of subject system 1 has the text summary \textit{clustering execution paths using scipy Labeling a cluster using six variants  This function returns function name with their docstring  analyzing Python programs to build cluster tree of execution paths.} Subject system 1 is our program to cluster execution paths from a call graph. Then, we labeled the nodes in cluster using six different techniques and also analyzed docstring to produce summary that we discussed in this research question. If we carefully observe the summary for node 60, using TextRank algorithm our produced summary is almost accurate about what the first subject system does. For node 57, our approach's summary is \textit{converting tgf file to a networkX graph extracting function names from TGF file analyzing Python programs to build cluster tree of execution paths.} From the summary, we can confidently tell that abstraction node 57 deals with extracting function names from TGF file, converting TGF format file to networkX graph.
+ The root node 60 of subject system 1 has the text summary \textit{clustering execution paths using scipy Labeling a cluster using six variants  This function returns function name with their docstring  analyzing Python programs to build cluster tree of execution paths.} Subject system 1 is our program to cluster execution paths from a call graph. Then, we labelled the nodes in the cluster using six different techniques and also analyzed docstring to produce summary that we discussed in this research question. If we carefully observe the summary for node 60, using the TextRank algorithm, our produced summary is almost accurate about what the first subject system does. For node 57, our approach's summary is \textit{converting tgf file to a networkX graph extracting function names from TGF file analyzing Python programs to build cluster tree of execution paths.} From the summary, we can confidently tell that abstraction node 57 deals with extracting function names from TGF file, converting TGF format file to networkX graph.
  
  
-The root node 1272 of subject system 2 (Pyan) has the summary \textit{Resolve those calls to built-in functions whose return values Return a label for this node, suitable for use in graph formats.} As Pyan deals with source code, we can see the summary is saying something about resolving built-in functions, labeling nodes for graph format. We can relate this summary to the purpose of Pyan partially. For node 1271, the summary is \textit{Try to determine the full module name of a source file, by figuring out       Return the node representing the current class, or None if not inside a class definition.}
+The root node 1272 of subject system 2 (Pyan) has the summary \textit{Resolve those calls to built-in functions whose return values Return a label for this node, suitable for use in graph formats.} As Pyan deals with source code, we can see the summary saying something about resolving built-in functions and labelling nodes for graph format. We can relate this summary to the purpose of Pyan partially. For node 1271, the summary is \textit{Try to determine the full module name of a source file, by figuring out       Return the node representing the current class, or None if not inside a class definition.}
 The summary for node 1271 says that the execution paths it abstracted mostly deal with determining a source file module, getting the class name a node represents. These are some standard utilities for a project which process source code. The summary for node 58 is \textit{Generate cluster figure from a dendrogram. Flattens a nested list. This function returns function name with their docstring.} Node 58 deals with plotting the dendrogram, mapping function name to docstring.
 
 The root node 806 of subject system 3 (Real-Time-Voice-Cloning) has the summary \textit{If this function is not explicitely called, it will be run on the Args:                  Computes where to split an utterance waveform and its corresponding mel spectrogram to obtain   Derives a mel spectrogram ready to be used by the encoder from a preprocessed audio waveform.} As we have described previously, Real-Time-Voice-Cloning software can clone a voice to produce speech from text. If we see the summary generated by TextRank for node 806, we can say it deals with processing audio wave-forms. Furthermore, for node 801, the summary is \textit{Args:   Synthesizes mel spectrograms from texts and speaker embeddings.} Summary for node 801 is very small. It indicates that mostly docstring for Real-Time-Voice-Cloning is empty, and the short summary indicates text to speaker embedding, which is essential for voice cloning.
 
-From the observation of node summary generated by TextRank for three subject systems, we can conclude that if functions are properly documented with docstring this approach can complement the comprehensiveness of abstraction nodes. We faced the challenge of different formats of comments, which hampered the extraction of the docstring. 
+From the observation of node summary generated by TextRank for three subject systems, we can conclude that if functions are properly documented with docstring, this approach can complement the comprehensiveness of abstraction nodes. We faced the challenge of different formats of comments, which hampered the extraction of the docstring.  
+ 
 
 \subsection{ RQ3: Effectiveness of mined patterns from execution paths}
 From our manual investigation into the execution paths of an abstracted node, we find that there are recurrent patterns that can help comprehend the abstracted node. Therefore, we develop a technique to use sequential pattern mining for selecting patterns among the execution paths from those findings. 
@@ -257,52 +259,50 @@ From our manual investigation into the execution paths of an abstracted node, we
 The patterns for root node 60 of subject system 1 are
 
 \begin{itemize}
-    \item ClusteringCallGraph,python\_analysis,clustering\_using\_\\
+    \item ClusteringCallGraph, python\_analysis, clustering\_using\_
     scipy
-    \item ClusteringCallGraph,python\_analysis,clustering\_using\\
-    \_scipy ,labeling\_cluster
-    \item ClusteringCallGraph,python\_analysis,clustering\_using\_\\scipy,
+    \item ClusteringCallGraph, python\_analysis, clustering\_using
+    \_scipy, labeling\_cluster
+    \item ClusteringCallGraph, python\_analysis, clustering\_using\_scipy,
 labeling\_cluster, tf\_idf\_score\_for\_scipy\_cluster
 \end{itemize}
-From observing this pattern, we can clearly tell that node 60 is working with Python code, clustering using scipy library, labeling the clusters. As this is the root node of the subject system 1, we can conclude the patterns clearly represent the root nodes purpose.
+We can tell that node 60 works with Python code, clustering using scipy library, labelling the clusters from observing this pattern. As this is the root node of the subject system 1, we can conclude that the patterns represent the purpose.
 
 The patterns for node 58 are 
 
 \begin{itemize}
-    \item ClusteringCallGraph,PlayingWithAST
-    \item ClusteringCallGraph,get\_all\_method\_docstring\_pair\_of\_a\_\\
-    project
-    \item ClusteringCallGraph,get\_all\_method\_docstring\_pair\_of\_a\_\\
-    project,get\_all\_py\_files
+    \item ClusteringCallGraph, PlayingWithAST
+    \item ClusteringCallGraph, get\_all\_method\_docstring\_pair\_of\_a\_project
+    \item ClusteringCallGraph, get\_all\_method\_docstring\_pair\_of\_a\_project, get\_all\_py\_files
 \end{itemize}
-From the patterns for node 58 retrieved by sequential pattern mining, we can see it is extracting docstring from all Python files which is one of the important part for answering our RQ2. 
+From the patterns for node 58 retrieved by sequential pattern mining, we can see it extracts docstring from all Python files, which is one of the essential parts for answering our RQ2. 
 
 The patterns for root node 1272 are
 
 \begin{itemize}
     \item get\_attribute
-    \item resolve\_builtins,get\_attribute
-    \item analyze\_binding,resolve\_builtins
+    \item resolve\_builtins, get\_attribute
+    \item analyze\_binding, resolve\_builtins
 \end{itemize}
 
 From the list of patterns, we can see there is very little information. Although these patterns are for the root node, they are most frequent. Limiting the length of the minimum pattern can solve the problem. However, we can understand that getting attributes, analyzing bindings, and resolving built-ins is the most common concept for root node 1272.
 
 The patterns for node 1240 are 
 \begin{itemize}
-    \item resolve\_builtins,resolve\_method\_resolution\_order,\\
-    C3\_linearize,C3\_merge
-    \item analyze\_binding,resolve\_builtins,resolve\_\\method\_resolution\_
-    order,C3
-    \_linearize,C3\_merge
-    \item resolve\_builtins,resolve\_method\_resolution\_order,\\
-    C3\_linearize,C3\_merge,C3\_find\_good\_head,\\LinearizationImpossible
+    \item resolve\_builtins, resolve\_method\_resolution\_order, 
+    C3\_linearize, C3\_merge
+    \item analyze\_binding, resolve\_builtins, resolve\_method\_resolution\_
+    order, C3
+    \_linearize, C3\_merge
+    \item resolve\_builtins, resolve\_method\_resolution\_order,
+    C3\_linearize, C3\_merge, C3\_find\_good\_head, LinearizationImpossible
 \end{itemize}
 From the patterns of node 1240, we can see that method resolution order, linearize, resolve builtins are the main task.
 
 The patterns for root node 806 of subject system 3 are
 
 \begin{itemize}
-    \item init,setup\_events
+    \item init, setup\_events
     \item wav\_to\_mel\_spectrogram
     \item embed\_utterance
     \item train
@@ -315,15 +315,15 @@ The patterns for node 804 are
     \item wav\_to\_mel\_spectrogram
     \item encoder\_preprocess
     \item embed\_utterance
-    \item encoder\_preprocess,\_preprocess\_speaker\_dirs,\\
+    \item encoder\_preprocess, \_preprocess\_speaker\_dirs,
     preprocess\_speaker
 \end{itemize}
-From the patterns of node 804, we can say that node 804 is embeddeing and encoding audio signals, prepossessing speaker audios.
+From the patterns of node 804, we can say that node 804 is embedding and encoding audio signals, prepossessing speaker audios.
 
-From observing significant patterns of different nodes from three subject systems, we can conclude that providing them with an abstraction node can enhance a node's comprehensibility. However, the minimum length of each pattern and removing frequency-based bias should be considered to improve the patterns.
+From observing patterns of different nodes from three subject systems, we can conclude that providing them with an abstraction node can enhance a node's comprehensibility. However, tunning the minimum length of each pattern and removing frequency-based bias should be considered to improve the patterns.
 \subsection{ RQ4: Effectiveness of using label, summary and patterns together}
 
-In RQ1, we manually analyzed how expressive the label for nodes using word and method variants. We found that method variation of the TFIDF technique provides a more sophisticated label than its word variant, which seems ambiguous. From our analysis of RQ2, we have seen promising summary for nodes using TextRank. Although this method's success hugely depends on how well the method docstring is written, excluding unrelated information is a challenge due to different formations. From RQ3, it is clear that patterns from execution paths are helpful to support nodes, although effectiveness hugely depends on selecting tuning mining pattern algorithms. Therefore, if the challenges for generating name, summary, and patterns are solved accordingly, they will enrich the comprehension of the abstraction node, in total, the overall hierarchical abstraction tree. 
+In RQ1, we manually analyzed how expressive the label for nodes is using word and method variants. We found that method variation of the TFIDF technique provides a more sophisticated label than its word variant, which seems ambiguous. From our analysis of RQ2, we have seen a good summary for nodes using TextRank. Although this method's success hugely depends on how well the method docstring is written, excluding unrelated information is a challenge due to different formations. From RQ3, it is clear that patterns from execution paths are helpful to support nodes, although effectiveness hugely depends on selecting tuning mining pattern algorithms. Therefore, if the challenges for generating a name, summary, and patterns are solved accordingly, they will enrich the comprehension of the abstraction node, in total, the overall hierarchical abstraction tree. 
 
 \section{Threats to validity}
 
