@@ -58,19 +58,59 @@ In Figure \ref{fig:motivation} we have presented the hierarchical abstraction of
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\columnwidth]{figures/hla2/motivation_n.png}
-  \caption{Hierarchical abstraction of the calculator program (EP means Execution path or leaf node and IN means Hypothetical abstraction or Intermediate Node)}~\label{fig:motivation}
+  \includegraphics[width=\columnwidth]{figures/hla2/hla2_motivation.png}
+  \caption{Hierarchical abstraction tree of the calculator program (EP means Execution path or leaf node and AN means Abstraction Node)}~\label{fig:motivation}
 \end{figure}
 
+\textbf{Constructing the Hierarchical Abstraction Tree.} To generate the tree shown in Figure \ref{fig:motivation}, the following steps are followed.
+
+\begin{enumerate}
+    \item To get the caller-callee relationship from the source code of Calculator program, we use static source code analyzer.
+    \item We construct static call graph from the extracted relationships of \emph{Calculator.py} program. 
+    \item From the call graph, possible execution scenarios are generated  which are the execution paths shown in Figure \ref{fig:motivation} (EP 0 - 5).
+    \item Similarity score for each pair of execution paths are calculated which is used by the clustering algorithm to group the execution paths. As EP 0, 1, ...., 4 all have three common functions, the similarity measure between them  will be same.  
+    \item Clustering algorithm starts grouping the execution paths by taking the most similar two first. In Figure \ref{fig:motivation}, we see that EP 0, 1 are grouped together as abstraction node (AN) 7.
+    \item As AN 7 have EP 0, 1, we use information retrieval techniques on all the terms in functions names of EP 0, 1 to label the AN 7. 
+    \item Although keywords are helpful for hint, having a text description and frequent execution patterns for each abstraction node increases comprehension. In Table \ref{table:node_summary_patterns}, we presented node summary and execution patterns for AN 10, 11. 
+    
+\end{enumerate}
+
+
+
+\begin{table*}[h]
+\caption{Abstraction Nodes with summary and execution patterns}
+    \centering
+    \begin{tabular}{ |l | p{5cm} | p{10cm} | } 
+ \hline
+ AN & Node Summary & Execution Patterns \\ 
+ \hline
+ 11 & This function multiply two numbers. This function mod two numbers. This function subtract two numbers.  &  \bullet init \rightarrow two\_number\_input \rightarrow valid\_number. 
+ \bullet init \rightarrow operations\_to\_do \rightarrow add\_two\_numbers. 
+ \bullet init \rightarrow operations\_to\_do \rightarrow divide\_two\_numbers. 
+\bullet init \rightarrow operations\_to\_do \rightarrow mod\_two\_numbers. 
+ \bullet init \rightarrow operations\_to\_do \rightarrow multiply\_two\_numbers. 
+ \bullet init \rightarrow operations\_to\_do \rightarrow subtract\_two\_numbers. \\ 
+10 & This function mod two numbers. This function divide two numbers. This function subtract two numbers. & 
+\bullet init \rightarrow operations\_to\_do \rightarrow add\_two\_numbers. 
+\bullet init \rightarrow operations\_to\_do \rightarrow divide\_two\_numbers. 
+\bullet init \rightarrow operations\_to\_do \rightarrow mod\_two\_numbers. 
+\bullet init \rightarrow operations\_to\_do \rightarrow multiply\_two\_numbers. 
+\bullet init \rightarrow operations\_to\_do \rightarrow subtract\_two\_numbers. 
+\\ 
+ \hline
+\end{tabular}
+    \label{table:node_summary_patterns}
+\end{table*}
+
+
+
+\textbf{Exploring the Hierarchical Abstraction Tree.}
 \begin{itemize}
-    \item Execution path 0 and 1 represent the functionality of multiply two numbers and adding two numbers, respectively. For these two clusters, add and multiply is the two different job they are doing. Other functions of the two paths are similar. So, the abstraction of these two execution paths is Intermediate node 7. Five keywords are picked as the abstraction of execution paths 0 and 1. From the keywords of node 7, it is clear that descendent nodes do addition and multiply on two numbers.
+    \item Execution path 0 and 1 represent the functionality of multiply two numbers and adding two numbers, respectively. For these two clusters, add and multiply is the two different job they are doing. Other functions of the two paths are similar. So, the abstraction of these two execution paths is abstractioin node 7. Five keywords are picked as the abstraction of execution paths 0 and 1. From the keywords of node 7, it is clear that descendent nodes do addition and multiply on two numbers.
     \item Next, for node 10, we can see the keywords are add, divide, mod, multiply, and subtract. These five keywords indicate that the descendant nodes of 10 do these numerical operations. If we observe the five execution paths (EP 0 - 4), we find that they perform add, delete, mod, multiply operation on two input numbers. We can see that the five keywords of node 10 summarize the functionality of its descendants.
     \item Similarly, for node 11, the keywords are mod, multiply, subtract, valid, and number. We can see the right child node (node 5) of node 11 input two numbers and then validates it. Left descendants of node 11 perform numerical operations. So, the summary of node 11 contains three words relevant to operation and two for input validation.
 \end{itemize}
-   From our understanding, we can see that this is an almost human level summary for node 10. The summary presented in Figure \ref{fig:motivation} is generated using Tfidf score on words in method name. This figure can help both top-down and bottom-up cognition model of program comprehension to explore the Calculator program. To further assist this purpose, we also provided a text description of the nodes (by summarizing comments of methods) and a glimpse of the execution paths' inside by mining sequential patterns.  
-
-
-
+   From our understanding, we can see that this is an almost human level summary for node 10. The summary presented in Figure \ref{fig:motivation} is generated using Tfidf score on words in method name. 
 
 \section{ Techniques \& Algorithms}
 \label{background:techniques}
