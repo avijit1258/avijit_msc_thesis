@@ -12,7 +12,7 @@ In this chapter, we briefly discuss relevant terms, topics and techniques helpfu
 
 \section{Call graph}
 \label{background:call_graph}
-A \emph{call graph} is a control flow graph of a program showing calling relationships between functions. Each node of the graph represents a function and each edge $(a, b)$ represent calling relationship where function $a$ calls function $b$. Figure \ref{fig:bg_call_graph} shows a simple call graph with six nodes indicating functions and six edges indicating calling relationships. Call graphs can be two type. One type is static call graph. A static call graph contains all the possible program execution scenarios. To generate a static call graph, source code of the program is analyzed to find the relationships. A dynamic call graph represents one program run scenario. Therefore, a dynamic call graph is exact and limited to the scenarios used to generate the graph. To generate a dynamic call graph, logger or profiler is applied which generates call graph during run-time of the program.
+A \emph{call graph} is a control flow graph of a program showing calling relationships between functions. Each node of the graph represents a function and each edge $(a, b)$ represent calling relationship where function $a$ calls function $b$. Figure \ref{fig:bg_call_graph} shows a simple call graph with six nodes indicating functions and six edges indicating calling relationships. Call graphs can be of two type. One type is a static call graph. A static call graph contains all the possible program execution scenarios. To generate a static call graph, source code of the program is analyzed to find the relationships. A dynamic call graph represents one program run scenario. Therefore, a dynamic call graph is exact and limited to the scenarios used to generate the graph. To generate a dynamic call graph, logger or profiler is applied which generates call graph during run-time of the program.
 
 \begin{figure}[h]	
 	\centering
@@ -33,14 +33,14 @@ An \emph{entry node} for a call graph is the nodes which number of incoming degr
 An \emph{exit node} for a call graph is the nodes which number of outgoing degree is zero. In Figure \ref{fig:bg_call_graph}, the call graph has two exit nodes \emph{F0, F3}. The exit nodes \emph{F0, F3} do not call any other functions or nodes. That means program execution will end when we come to this node.
 
 
-The \emph{execution paths} of a call graph are the all possible program execution scenarios. A program execution scenario consist of a function call sequence starting from a \emph{entry node} and ending to a \emph{exit node} of the call graph. In Figure \ref{fig:bg_execution_path}, all the execution paths from the call graph of Figure \ref{fig:bg_call_graph} are listed. First node of the execution paths are the Entry nodes which is defined above. Similarly, Last node of the execution paths are the Exit nodes. 
+The \emph{execution paths} of a call graph are the all possible program execution scenarios. A program execution scenario consist of a function call sequence starting from a \emph{entry node} and ending to a \emph{exit node} of the call graph. In Figure \ref{fig:bg_execution_path}, all the execution paths from the call graph of Figure \ref{fig:bg_call_graph} are listed. The first node of the execution paths are the Entry nodes which is defined above. Similarly, the last node of the execution paths are the Exit nodes. 
 
 
 
 
 \section{Abstract code summary tree}
 \label{background:cct}
-In this thesis, we introduce a term called abstract code summary tree (ACST). ACST is a tree where each leaf node is attached to an execution paths extracted from call graph of a software. The parent nodes of the leaf nodes are grouping of similar execution paths (leaf nodes). We call this intermediate nodes as abstraction node as they abstract similar execution scenarios. Each abstraction node has three properties which are title, text summary and execution patterns. 
+In this thesis, we introduce a term called abstract code summary (ACS) tree. In an ACS tree each leaf node is attached to an execution path extracted from the call graph of a software system. The parent nodes of the leaf nodes are grouping of similar execution paths (leaf nodes). We call this intermediate nodes an abstraction node as it abstract similar execution scenarios. Each abstraction node has three properties which are title, text summary and execution patterns. 
 
 \begin{figure}[h]
   \centering
@@ -48,13 +48,13 @@ In this thesis, we introduce a term called abstract code summary tree (ACST). AC
   \caption{An abstract code summary tree with its different components }
   \label{background:cct}
 \end{figure}
-In Figure \ref{background:cct}, we present a ACST where \emph{4, 5, 6, 7} nodes are leaf node which are attached to execution paths. Nodes \emph{1, 2, 3} are abstraction nodes which are grouping of the leaf nodes. Each abstraction nodes has number of execution paths and we use different information from those execution paths to generate concepts for them. Node 3 has two execution paths which belong to node 6 and 7. Like all other abstraction nodes Node 3 will have title, text summary and execution patterns. The title of Node 3 will be generated using different information retrieval techniques on method signatures. Next, The text summary of Node 3 will be generate by summarizing comments of the methods which belong to the execution paths of Node 3. The execution patterns of the Node 3 will be generated by finding frequent patterns on the execution paths of Node 3.
+In Figure \ref{background:cct}, we present a ACS tree where \emph{4, 5, 6, 7} nodes are leaf node which are attached to execution paths. Nodes \emph{1, 2, 3} are abstraction nodes which are grouping of the leaf nodes. Each abstraction nodes has number of execution paths and we use different information from those execution paths to generate concepts for them. Node 3 has two execution paths which belong to node 6 and 7. Like all other abstraction nodes Node 3 will have title, text summary and execution patterns. The title of Node 3 will be generated using different information retrieval techniques on method signatures. Next, the text summary of Node 3 will be generated by summarizing comments of the methods which belong to the execution paths of Node 3. The execution patterns of Node 3 will be generated by finding frequent patterns on the execution paths of Node 3.
 
 \section{Motivational Example}
 \label{background:motive}
-To demonstrate how a software system's hierarchical abstraction will work, we have created a sample Calculator program. The program takes two numbers as input, validates the inputs, and prompts the user to input which operations they want to perform. Later, according to the input, addition, subtraction, multiplication, division can be performed. This is a brief functionality of the calculator program. We have provided the source code of the Calculator program in appendix \ref{appendix:calculator}.
+To demonstrate how a software system's hierarchical abstraction will work, we have created a sample Calculator program. The program takes two numbers as inputs, validates the inputs, and prompts the user to input which operations they want to perform. Later, according to the input, addition, subtraction, multiplication, division can be performed. This is a brief functionality of the calculator program. We have provided the source code of the Calculator program in appendix \ref{appendix:calculator}.
 
-In Figure \ref{fig:motivation} we have presented the hierarchical abstraction of the Calculator program. From the figure, we can see our Calculator program has six execution paths. Their node number is from 0-5. 
+In Figure \ref{fig:motivation}, we have presented the hierarchical abstraction of the Calculator program. From the figure, we can see our Calculator program has six execution paths. Their node numbers are from 0-5. 
 
 \begin{figure}[h]
   \centering
@@ -65,13 +65,13 @@ In Figure \ref{fig:motivation} we have presented the hierarchical abstraction of
 \textbf{Constructing the abstract code summary.} To generate the tree shown in Figure \ref{fig:motivation}, the following steps are followed.
 
 \begin{enumerate}
-    \item To get the caller-callee relationship from the source code of Calculator program, we use static source code analyzer.
-    \item We construct static call graph from the extracted relationships of \emph{Calculator.py} program. 
+    \item To get the caller-callee relationship from the source code of Calculator program, we use a static source code analyzer.
+    \item We construct a static call graph from the extracted relationships of \emph{Calculator.py} program. 
     \item From the call graph, possible execution scenarios are generated  which are the execution paths shown in Figure \ref{fig:motivation} (EP 0 - 5).
-    \item Similarity score for each pair of execution paths are calculated which is used by the clustering algorithm to group the execution paths. As EP 0, 1, ...., 4 all have three common functions, the similarity measure between them  will be same.  
-    \item Clustering algorithm starts grouping the execution paths by taking the most similar two first. In Figure \ref{fig:motivation}, we see that EP 0, 1 are grouped together as abstraction node (AN) 7.
-    \item As AN 7 have EP 0, 1, we use information retrieval techniques on all the terms in functions names of EP 0, 1 to label the AN 7. 
-    \item Although keywords are helpful for hint, having a text description and frequent execution patterns for each abstraction node increases comprehension. In Table \ref{table:node_summary_patterns}, we presented node summary and execution patterns for AN 10, 11. 
+    \item Similarity scores for each pair of execution paths are calculated which is used by the clustering algorithm to group the execution paths. As EP 0, 1, ...., 4 all have three common functions, the similarity measure between them  will be same.  
+    \item A clustering algorithm starts grouping the execution paths by taking the most similar two first. In Figure \ref{fig:motivation}, we see that EP 0, 1 are grouped together as abstraction node (AN) 7.
+    \item As AN 7 have EP 0, 1, we use information retrieval techniques on all the terms in functions names of EP 0, 1 to label the node AN 7. 
+    \item Although keywords are helpful for providing hints to features, having a text description and frequent execution patterns for each abstraction node increases comprehension. In Table \ref{table:node_summary_patterns}, we presented node summary and execution patterns for AN 10, 11. 
     
 \end{enumerate}
 
@@ -106,16 +106,16 @@ In Figure \ref{fig:motivation} we have presented the hierarchical abstraction of
 
 \textbf{Exploring the abstract code summary.}
 \begin{itemize}
-    \item Execution path 0 and 1 represent the functionality of multiply two numbers and adding two numbers, respectively. For these two clusters, add and multiply is the two different job they are doing. Other functions of the two paths are similar. So, the abstraction of these two execution paths is abstractioin node 7. Five keywords are picked as the abstraction of execution paths 0 and 1. From the keywords of node 7, it is clear that descendent nodes do addition and multiply on two numbers.
+    \item Execution path 0 and 1 represent the functionality of multiplying two numbers and adding two numbers, respectively. For these two clusters, add and multiply are the two different jobs they are doing. Other functions of the two paths are similar. So, the abstraction of these two execution paths is abstraction node 7. Five keywords are picked as the abstraction of execution paths 0 and 1. From the keywords of node 7, it is clear that descendent nodes do addition and multiply on two numbers.
     \item Next, for node 10, we can see the keywords are add, divide, mod, multiply, and subtract. These five keywords indicate that the descendant nodes of 10 do these numerical operations. If we observe the five execution paths (EP 0 - 4), we find that they perform add, delete, mod, multiply operation on two input numbers. We can see that the five keywords of node 10 summarize the functionality of its descendants.
     \item Similarly, for node 11, the keywords are mod, multiply, subtract, valid, and number. We can see the right child node (node 5) of node 11 input two numbers and then validates it. Left descendants of node 11 perform numerical operations. So, the summary of node 11 contains three words relevant to operation and two for input validation.
 \end{itemize}
-   From our understanding, we can see that this is an almost human level summary for node 10. The summary presented in Figure \ref{fig:motivation} is generated using Tfidf score on words in method name. 
+   From our understanding, we can see that this is an almost human level summary for node 10. The summary presented in Figure \ref{fig:motivation} is generated using TFIDF scores on words in method names. 
 
 \section{ Techniques \& Algorithms}
 \label{background:techniques}
 \subsection{TFIDF}
-TFIDF is weight based statistical information retrieval technique. It tries to find important terms to a specific document by analyzing collection of documents. TFIDF is popular for document classification, search engine ranking and text mining\footnote{https://en.wikipedia.org/wiki/Tf–idf}. TFIDF ranks terms by term frequency-inverse document frequency score. Term frequency is count of a term in a document. Term frequency is biased towards common terms which mostly irrelevant to the document. 
+TFIDF is a weight based statistical information retrieval technique. It tries to find important terms to a specific document by analyzing a collection of documents. TFIDF is popular for document classification, search engine ranking and text mining\footnote{https://en.wikipedia.org/wiki/Tf–idf}. TFIDF ranks terms by term frequency-inverse document frequency score. Term frequency is count of a term in a document. Term frequency is biased towards common terms which mostly irrelevant to the document. 
 
 \begin{equation}
     tf (W_x, D_x) = f_{W_x,D_x}
@@ -193,6 +193,38 @@ Mihalcea \cite{mihalcea2004textrank} proposed graph based ranking algorithm insp
 
 Let, $ G = (V, E)$ is a directed graph where V is the collection of vertices and E is the collection of edges. $In(V_i)$ is the set of vertices which points to vertex $V_i$. Similarly, $Out(V_j)$ is the set of vertices which vertex $V_j$ points to. The similarity score between vertex $V_i$ and $V_j$ is represented by $w_{ji}$. 
 
+
+\section{Related work}
+\subsection{Program Comprehension in general}
+\label{related:program_comprehension}
+Program comprehension is a cognitive way of understanding software systems to perform different software maintenance tasks \cite{wei2002surveyCategorizationComprehension, siegmund2016programPastFuture}. Three different type of cognitive models \cite{tilley1998reverseEngineeringFramework, von1993programToolRequirements, siegmund2016programPastFuture} can be found in the literature which is followed consciously or unconsciously by developers. The comprehension models are Top-down, Bottom-up, and Integrated. When developers have prior domain knowledge about a software system, the top-down model is preferred as they can map domain knowledge to low-level source code hierarchically \cite{brooks1983theoryComprehensionPrograms}. On the other hand, when developers lack domain knowledge, they start with low-level source code and then group the functionality together to have a hierarchical abstraction of the system features \cite{shneiderman1979syntacticInteractionsModel, pennington1987stimulusMentalRepresentations}. Integrated model \cite{shaft1995relevanceDomainKnowledge, von1993programToolRequirements} is a mix of top-down and bottom-up approach. The problem in hand and the target system have different properties in the real world, which demand switching between top-down and bottom-up models. Generally, a developer can have prior domain knowledge of a few portion and point-blank for the rest of the system. This situation deserves the adapted use of both top-down and bottom-up approaches.   
+
+
+\subsection{IR techniques to Name source code artifacts}
+\label{related:IR}
+% \cite{mcburney2014improvingTopicSummarize}
+% \cite{de2012IRMethodsArtifacts} \cite{panichella2013topicModelsTasks}
+% \cite{chen2016topicMiningRepositories}
+% Very very important \cite{sun2016surveyTopicSE}
+As software repositories contain unstructured data, topic model techniques are widely applied for different software engineering tasks to retrieve information \cite{chen2016topicMiningRepositories, panichella2013topicModelsTasks, sun2016surveyTopicSE}. Most common tasks where topic models showed promising results are source code comprehension, feature location, refactoring, bug localization, and others \cite{sun2016surveyTopicSE}. Lucia et al. \cite{de2012IRMethodsArtifacts} conducted a study to see how information retrieval techniques perform compared to manual naming Java class files. Developers were asked to pick ten keywords for each class file, and top-10 words are picked using different topic model technique and custom heuristics. Their experiment shows that in 40\%-80\% cases, automatic and human label overlaps. 
+
+\subsection{Reverse Engineering}
+\label{related:reverse_engineering}
+\subsubsection{Subsystem Identification}
+Muller et al. \cite{muller1990composingSubsystemStructures} proposed subsystem detection algorithm using different clustering components like variable, procedure, and modules. 
+According to Bass et al. \cite{bass2003softwareArchitecturePractice}, two types of software architecture are useful for understanding a complex software system. They are Conceptual and Concrete architecture. A conceptual architecture provides high-level abstraction skipping the code level details. On the other hand, concrete architecture shows the implementation level information. Roy et al. \cite{roy2008softwareArchitectureRecovery} propose and evaluate a framework for the incremental and iterative application of automated architecture recovery (using SWAG Kit) and architecture analysis (using SAAM.). They showed that the reverse engineering tool cannot recover a deeply understood conceptual architecture without SAAM's application but can create a reasonable basis towards that direction. Murphy et al.\cite{MurphyNotkin2001} show that by generating reflexion models from high-level model and source model (i.e., static call graphs), it is possible to facilitate program understanding to the novice developers. In this thesis, we try to automatically recover conceptual architecture from concrete architecture, reducing manual effort.
+
+\subsubsection{Call graphs to abstract a software system behaviors}
+
+Static and dynamic call graphs are used in literature to help developers comprehend a software system to aid different maintenance tasks \cite{feng2018hierarchicalExecutionComprehension, gharibi2018automaticStaticCluster, xin2019identifyingFeaturesExecution}. Feng et al. \cite{feng2018hierarchicalExecutionComprehension} proposed an approach to use dynamic call graphs for understanding a system's behavior. They instrumented the subject systems to generate execution traces of method entry and exit events. Later, they followed the duplication removal process and constructed a call graph from the execution traces. Execution phases from this dynamic call graph are clustered to get system behaviors. Similarly, Gharib et al. \cite{gharibi2018automaticStaticCluster}, and Vijay et al. \cite{walunj2019graphevoEvolutionCall} also adopted clustering of execution paths from call graphs of the static variant. Using a static call graph brings the benefit of capturing all possible scenarios and less redundant data to handle than dynamic call graph \cite{gharibi2018automaticStaticCluster}. 
+
+\subsubsection{IR techniques on the hierarchical abstraction of software system}
+Feng et al. \cite{feng2018hierarchicalExecutionComprehension} proposed an approach to identify behaviors of a system by hierarchically abstracting dynamic call graph from execution traces. Sequential pattern mining is applied to mine significant portions from the execution phases. Hierarchical clustering is performed to group execution phases. Later, the clusters are labeled using the TFIDF score, where method signatures serve as terms and the phases as document. 
+Paul et al. \cite{mcburney2014improvingTopicSummarize} used static call graph to hierarchically abstract a system. In their hierarchical view, each node represents a method. To mine the topics, keywords from methods are considered. Hierarchical Document Topic Model (HDTM) by \cite{weninger2012documentTopicHierarchies} Weninger et al. is adopted, which works on graph documents to mine topic. Gharib et al. \cite{gharibi2018automaticStaticCluster} took a different approach. They went further with the static call graph by extracting execution paths and then clustering the execution paths. Each cluster in the cluster tree is labeled using top-5 method names from Tfidf. Levy et al. \cite{levy2019understandingLargeHierarchical} found interviewing developers that two kinds of comprehension go for large scale hierarchical view. They are system comprehension and code comprehension. In this paper, we tried to adopt static call graph analysis from Gharib et al. and then improve their labeling technique. Nodes of the cluster tree is considered as a behavioral abstraction unit of a system. Method comments are used to generate a description of the unit and sequential pattern mining to create sample examples. 
+
+\subsection{How developers locate feature on source code}
+\label{related:feature_locate}
+Kruger et al.~\cite{kruger2019features} studied on two data sets (67 developers IDE activity, 600 developers IR-based tool usage). They suggested that there is room for improvement in the existing code navigation, code search tools. The manual process followed by developers to locate feature are of mostly three types ~\cite{damevski2016field, wang2011exploratory, revelle2005understanding}. First, developers use information retrieval based tools to query for feature related keywords. In this thesis, we have used IR based techniques to label nodes. Developers can use our tool to find keywords of their interest. Second, execution-based process where developer try to find execution scenarios where the feature is active. After finding relevant execution scenarios, developers debug the execution scenarios by setting breakpoints. In our second study, we have attached execution patterns to nodes which can be utilized by developers to know where to set the breakpoints for understanding a feature. Third, exploration based process where developer explore source code to understand method calls to find a feature. In HCPC tool, we showed method execution patterns for each node. Our tool can also help developers for browsing code using exploration based process.
 % \section{Pyramid Score}
 
 % \section{Sequential Pattern Mining}
