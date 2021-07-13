@@ -99,53 +99,6 @@ In Algorithm \ref{alg:execution_patterns}, we present pseudo code for generating
 In previous studies, we have used a step-by-step clustering tree as the abstract code summary tree. However, for $n$ number of execution paths, the abstraction tree will have $2n + 1$ nodes which is not practical for medium to large projects. Therefore, we processed the cluster tree by using cluster flattening. The cluster flattening technique groups all clusters between a given distance as one. Therefore, by giving a larger distance, we can get very few clusters from a linkage matrix by merging all clusters between the distance as one. Similarly, we can get a larger number of clusters by using a small distance as the threshold value for flattening. For generating nodes at different depths, we use increasing threshold value for distance (e.g. [5, 4, 3, 2, 1.5]). We have manually tuned the distance values for individual subject systems.
 
 
-\section{Human-subject Study}
-\label{hla3:human_study}
-To evaluate the effectiveness of HCPC, we contacted with \emph{Scidatamanager} development team. We have collected their source code to analyze using our system. We have conducted the study with three developers of the \emph{Scidatamanager} project to find out their opinion about the HCPC tool.
-
-\subsection{Research Questions}
-\label{hla3:evaluation}
-We want to evaluate the effectiveness of HCPC for helping developers comprehend a software project. We address two research questions:
-\begin{itemize}
-    \item \textbf{RQ1:} To what extent developers do agree with our approach for getting overview of a project?
-    \item \textbf{RQ2:} How helpful is our approach to understand relevant high-level concepts targeting a low-level source code (method)?
-\end{itemize}
-\subsection{Study Design}
-The interview with developers are conducted remotely via Skype. The interview process was divided into four steps:
-\begin{itemize}
-    \item \emph{Introduction:} First, we brief each participants about our research. Then, we share our screen to show how to use the HCPC tool. We demonstrate the HCPC tool by exploring \emph{jupyter-client} project. We also discuss different components' role to help program comprehension. Later, we asked the participants to go to a specific URL where our application is hosted and share their screen. We informed participants about two parts of the study.  
-    
-    \item \emph{Feedback on getting overview (RQ1):} In this phase, we asked the participants to explore the ACS tree alongside different components like node summary, execution patterns. We requested them to check whether they can get an  overview of the \emph{SciDataManager} project. We encouraged the participants to express their thoughts while they explore different parts of the system. At the same time, we observed the participants' interaction with the system and noted feedback provided by them. When they explored the tree, we asked them whether the keywords and groups provide any reasonable clue about what the system does. Similarly, we asked them about their opinion on node summary and execution Patterns. We also inquired whether they have any suggestions or expectations for the components to be more helpful.
-    
-    
-    \item \emph{Effectiveness of finding help for specific task (RQ2):} After we complete the second step, we move on to the third phase. In this step, we ask the participants to use the search option to find relevant nodes in the ACS tree and see whether they can find any help to do tasks they recently did. We have encouraged them to remember any recent feature or issue they solved and try to see whether the HCPC tool could help them for completing the tasks. We asked the participants about how helpful Node summary, Execution patterns and the highlight of execution paths can be for someone new to the codebase to accomplish the tasks.
-    \item \emph{Open discussion and closing:} At the end, we asked some open-ended questions like suggestion for new features, feedback for existing features. The meetings lasted between 40 to 60 minutes. We ended the meeting thanking the participants for their valuable feedback and time.
-
-\end{itemize}
-\subsection{Participants and Subject System Selection}
-While observing the HCPC tool output for \emph{jupyter-client} project, we can relate the different nodes content to the components in \emph{jupyter-client} documentation. We decided to conduct the study on a subject system where the team members can participate in the study to evaluate HCPC tool performance on their known codebase. We contacted the \emph{SciDataManager} team whether they could share their source code and participate in the study to evaluate the HCPC. The development team agreed to share the codebase and three of them participated in the study. 
-\subsection{Results}
-\textbf{Answering RQ1.} Participants agreed that the HCPC tool can help in getting an overview of their project. When we asked the participants, they started to explore the abstraction tree by carefully observing the keywords for each node and expanding to child nodes. The participants agreed that high-level nodes provide hints to the features in their project. For example, participant P3 said, \emph{``I can relate to different basic components from high level nodes. If someone new joins the team, they can start from top nodes and see the path patterns for getting most frequent behaviour and then explore the code-base easily."} Participants appreciated the node summary as it states in plain text what are the purposes of the keywords in the project. Participants also find that when they see node summary for deeper nodes, the summary becomes more precise for specific features. 
-According to participant P1, \emph{`` This part is helpful as it states in natural texts instead of a few words. Another interesting fact about the summary is when going deeper the summary became more precise.''} While exploring the execution patterns, we observed that participants find it helpful to know some frequent call sequences in specific nodes. However, participant P2, P3 suggested that having the frequency with the patterns would be interesting to know for understanding the importance. 
-
-In summary, \textbf{Participants find the HCPC tool helpful for getting an overview of their software system with node title, summary and execution patterns.} According to their final feedback for comprehending overview, they pointed out that the HCPC tool has the potential to decrease the getting started time for a project. According to participant P1, they believe  it can help to decrease getting started time around 50\%-60\%.
-
-\textbf{Answering RQ2.} Participants find it useful to be able to search for specific keywords. From the interview, we observed that developers tried to highlight nodes for some recent work they have done or something they are familiar with to check how the HCPC tool is representing the relevant concepts. For example, participant P3 tried to highlight the nodes related to dataset publishing as it is one of the core feature of the project. While browsing the highlighted nodes and its supporting contents (node summary, execution patterns, execution paths), participant P3 identified that it is possible to know similar paths where the function is called. Another interesting observation by participant P2 is, \emph{`` I see the nodes can be searched by functions. In addition, I would love to see filters such as class, files.''} Participant P3 shared from their previous experience that sometimes they have to fix some issues of another project which are not very well documented and they struggle a lot to figure out the abstraction patterns followed in the codebase. Both participants P3, P1 suggested using the search option to explore execution paths will be helpful to decrease time required for completing tasks in those scenarios. Another interesting observation from the interview is for some searches multiple nodes are highlighted which shows the specific functions being used in different scenarios. We observe participants were enthusiastic to know what are the different directions the function is being used by going deeper in the abstraction tree. In addition, participant P1 shared that many times they try to search the codebase with some keywords using the find option provided by the editor to retrieve relevant files. However, the search result does not show any order or how these classes or methods are being called. They suggested that with the execution patterns and paths  the HCPC tool can help to convert the raw find workflow into more execution based search process. In summary, \textbf{the feedback from the participants and our observation during the interview indicate that it is viable that the search option of the HCPC tool has the potential to help in day-to-day software maintenance activities. } 
-
-% To Do using find button for searching which do not have any order
-
-During our open-ended questions and suggestions, we found valuable feedback for future development and adaptation of the HCPC tool. One important suggestion is to incorporate automatic comment generation techniques for methods which have no comments. This will be a valuable future work suggestion for our HCPC tool, as it will be helpful for projects which do not follow best practices. Another worth mentioning future work suggested by participant P2 is to generate a report of the abstraction structure where developers can edit the components' names according to their understanding from the HCPC tool. This report can be used as a documentation of the project structure from a static execution perspective. In addition, participants suggested to enable the option to export projects from GitHub which will be useful for quickly exploring a new codebase. From the above discussion, \textbf{we can conclude that the HCPC tool can help to get an overview of a software project from a static execution perspective and can be used to help doing a specific task in hand.}
-
-
-% TODO
-% github, report generation 
-
-
-\subsection{Threats to Validity}
-To address external validity, we have collected a software project which is developed in industry settings instead of working with a sample project. We have selected a professionally developed project to ensure generalizability to some extent. Although the subject system is written in Python, our approach will work with both static and dynamic typed language as our approach depends on only caller-callee relationship between methods. 
-
-To address internal validity, we have tried to minimize any communication issue by repeating the feedback when in doubt. We acknowledge that our sample size for participants in the study is small. However, our participants' are experienced in the subject system and we got repetitive feedback which indicates acceptance to some extent. We asked open-ended questions at the end so that participants are able to provide feedback outside the questions asked. 
-
 
 \section{Implementation }
 \label{hla3:implementation}
@@ -252,6 +205,55 @@ From the above text blocks, we can understand that \emph{jupyter-client} is rele
 \end{itemize}
 
 From above discussion with regard to write\_connection\_file method, we can see that HCPC helps to understand relevant concepts for a specific task. 
+
+\section{Human-subject Study}
+\label{hla3:human_study}
+To evaluate the effectiveness of HCPC, we contacted with \emph{Scidatamanager} development team. We have collected their source code to analyze using our system. We have conducted the study with three developers of the \emph{Scidatamanager} project to find out their opinion about the HCPC tool.
+
+\subsection{Research Questions}
+\label{hla3:evaluation}
+We want to evaluate the effectiveness of HCPC for helping developers comprehend a software project. We address two research questions:
+\begin{itemize}
+    \item \textbf{RQ1:} To what extent developers do agree with our approach for getting overview of a project?
+    \item \textbf{RQ2:} How helpful is our approach to understand relevant high-level concepts targeting a low-level source code (method)?
+\end{itemize}
+\subsection{Study Design}
+The interview with developers are conducted remotely via Skype. The interview process was divided into four steps:
+\begin{itemize}
+    \item \emph{Introduction:} First, we brief each participants about our research. Then, we share our screen to show how to use the HCPC tool. We demonstrate the HCPC tool by exploring \emph{jupyter-client} project. We also discuss different components' role to help program comprehension. Later, we asked the participants to go to a specific URL where our application is hosted and share their screen. We informed participants about two parts of the study.  
+    
+    \item \emph{Feedback on getting overview (RQ1):} In this phase, we asked the participants to explore the ACS tree alongside different components like node summary, execution patterns. We requested them to check whether they can get an  overview of the \emph{SciDataManager} project. We encouraged the participants to express their thoughts while they explore different parts of the system. At the same time, we observed the participants' interaction with the system and noted feedback provided by them. When they explored the tree, we asked them whether the keywords and groups provide any reasonable clue about what the system does. Similarly, we asked them about their opinion on node summary and execution Patterns. We also inquired whether they have any suggestions or expectations for the components to be more helpful.
+    
+    
+    \item \emph{Effectiveness of finding help for specific task (RQ2):} After we complete the second step, we move on to the third phase. In this step, we ask the participants to use the search option to find relevant nodes in the ACS tree and see whether they can find any help to do tasks they recently did. We have encouraged them to remember any recent feature or issue they solved and try to see whether the HCPC tool could help them for completing the tasks. We asked the participants about how helpful Node summary, Execution patterns and the highlight of execution paths can be for someone new to the codebase to accomplish the tasks.
+    \item \emph{Open discussion and closing:} At the end, we asked some open-ended questions like suggestion for new features, feedback for existing features. The meetings lasted between 40 to 60 minutes. We ended the meeting thanking the participants for their valuable feedback and time.
+
+\end{itemize}
+\subsection{Participants and Subject System Selection}
+While observing the HCPC tool output for \emph{jupyter-client} project, we can relate the different nodes content to the components in \emph{jupyter-client} documentation. We decided to conduct the study on a subject system where the team members can participate in the study to evaluate HCPC tool performance on their known codebase. We contacted the \emph{SciDataManager} team whether they could share their source code and participate in the study to evaluate the HCPC. The development team agreed to share the codebase and three of them participated in the study. 
+\subsection{Results}
+\textbf{Answering RQ1.} Participants agreed that the HCPC tool can help in getting an overview of their project. When we asked the participants, they started to explore the abstraction tree by carefully observing the keywords for each node and expanding to child nodes. The participants agreed that high-level nodes provide hints to the features in their project. For example, participant P3 said, \emph{``I can relate to different basic components from high level nodes. If someone new joins the team, they can start from top nodes and see the path patterns for getting most frequent behaviour and then explore the code-base easily."} Participants appreciated the node summary as it states in plain text what are the purposes of the keywords in the project. Participants also find that when they see node summary for deeper nodes, the summary becomes more precise for specific features. 
+According to participant P1, \emph{`` This part is helpful as it states in natural texts instead of a few words. Another interesting fact about the summary is when going deeper the summary became more precise.''} While exploring the execution patterns, we observed that participants find it helpful to know some frequent call sequences in specific nodes. However, participant P2, P3 suggested that having the frequency with the patterns would be interesting to know for understanding the importance. 
+
+In summary, \textbf{Participants find the HCPC tool helpful for getting an overview of their software system with node title, summary and execution patterns.} According to their final feedback for comprehending overview, they pointed out that the HCPC tool has the potential to decrease the getting started time for a project. According to participant P1, they believe  it can help to decrease getting started time around 50\%-60\%.
+
+\textbf{Answering RQ2.} Participants find it useful to be able to search for specific keywords. From the interview, we observed that developers tried to highlight nodes for some recent work they have done or something they are familiar with to check how the HCPC tool is representing the relevant concepts. For example, participant P3 tried to highlight the nodes related to dataset publishing as it is one of the core feature of the project. While browsing the highlighted nodes and its supporting contents (node summary, execution patterns, execution paths), participant P3 identified that it is possible to know similar paths where the function is called. Another interesting observation by participant P2 is, \emph{`` I see the nodes can be searched by functions. In addition, I would love to see filters such as class, files.''} Participant P3 shared from their previous experience that sometimes they have to fix some issues of another project which are not very well documented and they struggle a lot to figure out the abstraction patterns followed in the codebase. Both participants P3, P1 suggested using the search option to explore execution paths will be helpful to decrease time required for completing tasks in those scenarios. Another interesting observation from the interview is for some searches multiple nodes are highlighted which shows the specific functions being used in different scenarios. We observe participants were enthusiastic to know what are the different directions the function is being used by going deeper in the abstraction tree. In addition, participant P1 shared that many times they try to search the codebase with some keywords using the find option provided by the editor to retrieve relevant files. However, the search result does not show any order or how these classes or methods are being called. They suggested that with the execution patterns and paths  the HCPC tool can help to convert the raw find workflow into more execution based search process. In summary, \textbf{the feedback from the participants and our observation during the interview indicate that it is viable that the search option of the HCPC tool has the potential to help in day-to-day software maintenance activities. } 
+
+% To Do using find button for searching which do not have any order
+
+During our open-ended questions and suggestions, we found valuable feedback for future development and adaptation of the HCPC tool. One important suggestion is to incorporate automatic comment generation techniques for methods which have no comments. This will be a valuable future work suggestion for our HCPC tool, as it will be helpful for projects which do not follow best practices. Another worth mentioning future work suggested by participant P2 is to generate a report of the abstraction structure where developers can edit the components' names according to their understanding from the HCPC tool. This report can be used as a documentation of the project structure from a static execution perspective. In addition, participants suggested to enable the option to export projects from GitHub which will be useful for quickly exploring a new codebase. From the above discussion, \textbf{we can conclude that the HCPC tool can help to get an overview of a software project from a static execution perspective and can be used to help doing a specific task in hand.}
+
+
+% TODO
+% github, report generation 
+
+
+\subsection{Threats to Validity}
+To address external validity, we have collected a software project which is developed in industry settings instead of working with a sample project. We have selected a professionally developed project to ensure generalizability to some extent. Although the subject system is written in Python, our approach will work with both static and dynamic typed language as our approach depends on only caller-callee relationship between methods. 
+
+To address internal validity, we have tried to minimize any communication issue by repeating the feedback when in doubt. We acknowledge that our sample size for participants in the study is small. However, our participants' are experienced in the subject system and we got repetitive feedback which indicates acceptance to some extent. We asked open-ended questions at the end so that participants are able to provide feedback outside the questions asked. 
+
+
 
 
 \section{Conclusion}
