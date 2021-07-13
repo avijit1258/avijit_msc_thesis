@@ -320,11 +320,12 @@ The patterns for node 804 are
 From the patterns of node 804, we can say that node 804 is embedding and encoding audio signals, prepossessing speaker audios.
 
 From observing patterns of different nodes from the three subject systems, we can conclude that providing them with an abstraction node can enhance a node's comprehensibility. However, tuning the minimum length of each pattern and removing frequency-based bias should be considered to improve the patterns.
-\subsection{ RQ4: Effectiveness of using label, summary and patterns together}
 
+
+\subsection{ RQ4: Effectiveness of using label, summary and patterns together}
 In RQ1, we manually analyzed how expressive the label for nodes is using word and method variants. We found that method variation of the TFIDF technique provides a more sophisticated label than its word variant, which seems ambiguous. From our analysis of RQ2, we have seen a good summary for nodes using TextRank. However, this method's success largely depends on how well the method docstring is written, excluding unrelated information is a challenge due to different formations. From RQ3, it is clear that patterns from execution paths are helpful to support nodes, although effectiveness hugely depends on selecting tuning mining pattern algorithms. Therefore, if the challenges for generating a name, summary, and patterns are solved accordingly, they will enrich the comprehension of the abstraction node, in total, the overall abstract code summary tree. 
 
-\section{Threats to validity}
+\section{Threats to Validity}
 
 We have picked three different subject systems of varying size so that our approach's effectiveness can be generalized to some extent. We manually analyzed the results of our techniques to reach a saturated decision. Furthermore, two of the authors of a paper submitted based on this experiment individually analyzed the findings to remove subjective biases. We carefully picked the first line skipping lines with special characters to extract the docstring for each method. 
 
