@@ -35,7 +35,7 @@ In summary, our contributions are:
 
 This section is presented with a motivational example of real-world scenarios. Suppose Bob joined a new company X as a Junior Software Developer. He needs to work on a software project which is being developed for more than six years. He must have a cognitive mapping between source code artifacts and high-level concepts of the software project, which will boost his integration to the project. To get an understanding of the project, he can use the Call graph of the project, which visualizes functional dependency.
 
-\begin{figure*}[tb]
+\begin{figure*}[h]
   \centering
   \includegraphics[width=\columnwidth]{figures/hla1/realTime.png}
   \caption{A portion of the Call graph of Real-Time-Voice-Cloning project by Pyan}~\label{fig:realTime}
@@ -54,7 +54,7 @@ However, in Figure \ref{fig:realTime} we can see a portion of the large call gra
   \includegraphics[width=\columnwidth]{figures/hla1/visual_tool_static_call_graph-2.png}
   \caption{Structure of an abstract code summary tree}~\label{fig:hla1_motivation}
 \end{figure*}
-In this section, we discuss two significant steps in our approach with a brief discussion. First, in Section \ref{hla1:approach_acs}., we described six steps to get the cluster tree of a subject system. Second, in Section \ref{hla1:node_title}, we explain how we used different information retrieval techniques to label nodes of the abstract code summary tree. Data collection for evaluating the approach is depicted in algorithm \ref{alg:overall}.
+In this section, we discuss two significant steps in our approach with a brief discussion. First, in Section \ref{hla1:approach_acs}., we described six steps to get the cluster tree of a subject system. Second, in Section \ref{hla1:node_title}, we explain how we used different information retrieval techniques to label nodes of the abstract code summary tree. Data collection for evaluating the approach is depicted in algorithm \ref{hla1:alg:overall}.
 
 \label{approach}
 
@@ -96,7 +96,7 @@ In this section, we discuss two significant steps in our approach with a brief d
     
     return $concept\_cluster\_tree$;
     \caption{Our procedure for analyzing Python source code of a project to construct an abstract code summary tree}
-    \label{alg:overall}
+    \label{hla1:alg:overall}
 \end{algorithm}
 
 % \vspace{4mm}
@@ -107,13 +107,13 @@ graphs capture all function calls of a target system, we
 choose to abstract the target system. Previous studies suggested that function names contain significant abstraction of source code. Thus, we emphasize mining concepts by analyzing function names in the static call graph.
 As we want to capture and abstract the overall system's high-level concepts, therefore, the decision for adopting a static call graph as a building-block of our approach and using function names for concept location is well-justified.  
 
-In Figure \ref{fig:hla1_motivation}, we present the structure of our proposed abstract code summary tree. The leaf nodes of this tree are directly mapped to the execution paths. The execution paths are a list of function names executed sequentially during the execution of a software system. For instance, node 5 is mapped to the execution path where \texttt{ F11, F6, F7, and F9} are called sequentially. Similarly,  in this scenario, all the four-leaf nodes 4, 5, 6, and 7 are mapped to four execution paths or function call sequences. Node 1, 2, and 3 are intermediate nodes of the tree. Naming these intermediate nodes analyzing the execution paths that resides under them might reduce the need to go through in detail about their functionalities. In the figure, node 2 has been named \texttt{F11\_F6}, and node 3 has been named as \texttt{F3\_F1}  by analyzing the function names in the execution paths under those nodes. If we find a proper naming technique that can map concepts in source code with different granularity levels, this approach can make developers program comprehension tasks more flexible.
+In Figure \ref{fig:hla1_motivation}, we present the structure of our proposed abstract code summary tree. The leaf nodes of this tree are directly mapped to the execution paths. The execution paths are a list of function names executed sequentially during the execution of a software system. For instance, node 5 is mapped to the execution path where \texttt{ F11, F6, F7, and F9} are called sequentially. Similarly,  in this scenario, all the four-leaf nodes 4, 5, 6, and 7 are mapped to four execution paths or function call sequences. Node 1, 2, and 3 are intermediate nodes of the tree. Naming these intermediate nodes analyzing the execution paths that resides under them might reduce the need to go through in detail about their functionalities. In the figure, node 2 has been named \texttt{F11\_F6}, and node 3 has been named as \texttt{F3\_F1}  by analyzing the function names in the execution paths under those nodes. If we find a proper naming technique that can map concepts in source code with different granularity levels, this approach can make developers program comprehension tasks more flexible. In Figure \ref{hla1:fig:overall}, all the steps are visualized to generate ACS tree from source code.
   
 
 \begin{figure*}[tb]
   \centering
   \includegraphics[width=\columnwidth]{figures/hla1/visual_tool_static_call_graph.png}
-  \caption{Overview of the overall approach}~\label{fig:overall}
+  \caption{Overview of the overall approach}~\label{hla1:fig:overall}
 \end{figure*}
 
 \subsubsection{Analyzing source code using modified Pyan module}
@@ -201,8 +201,7 @@ Besides, we have compared developer preferences for three different techniques u
 In order to conduct the user-study, we have collected source code of three popular Python projects \texttt{Detectron} \cite{Detectron2018}, \texttt{Real\-Time\-Voice\-Cloning} \cite{realTime} and \texttt{requests}\cite{requests}. The reason behind choosing these subject systems for our study is that they are popular among Python developer communities. These projects follow the standard conventions of software developments so participants will be able to relate keywords from their day-to-day knowledge. Additionally, open-source projects tend to follow proper function naming conventions, which is important for our approach as it completely depends on function names. We extracted source code and applied the steps described in Section \ref{alg:overall}. We have printed clusters with their corresponding execution paths and names suggested by the candidate techniques in a file for doing the user-study. We have chosen 12 clusters semi-randomly, i.e.,  four from each of the subject systems, which ensures the coverage of different levels' clusters. 
 % \vspace{4mm}
 \subsection{User-study}
-
-\begin{figure*}
+\begin{figure*}[h]
     \begin{center}
     \subcaptionbox{Full abstract code summary tree with local view\label{fig:tool_ui}}
     {\includegraphics[scale=0.25]{figures/hla1/ToolUI.png}}
@@ -213,33 +212,22 @@ In order to conduct the user-study, we have collected source code of three popul
     \end{center}
     
 \end{figure*}
+For the 12 clusters, we manually analyzed each cluster's execution paths and come up with a 2-3 line description of what happens inside the clusters. Before the study, we told users to rate the automatic summaries of our three techniques, each with two variations. Additionally, we also provided a text box for the participants to select five keywords from the description produced by manual analysis of execution paths. We have used this summary to compute the Pyramid score for the three techniques of the words in function name variation. A total of five persons participated in the study with a software development background. Among them, three are female, and two are male. Each of the participants has at least a Bachelor's degree in Computer Science. Two of them are graduate students, and the other three are working as developers in three different software firms. All of them have at least three years of experience in programming experience with an average of 3.8 year. 
 
-
-For the 12 clusters, we manually analyzed each cluster's execution paths and come up with a 2-3 line description of what happens inside the clusters. Before the study, we told users to rate the automatic summaries of our three techniques, each with two variations. Additionally, we also provided a text box for the participants to select five keywords from the description produced by manual analysis of execution paths. We have used this summary to compute the Pyramid score for the three techniques of the words in function name variation. A total of five persons participated in the study with a software development background. Among them, three are female, and two are male. Each of the participants has at least a Bachelor's degree in Computer Science. Two of them are graduate students, and the other three are working as developers in three different software firms. All of them have at least three years of experience in software development.
 
 In Figure \ref{fig:tool_ui}, the abstract code summary tree from our tool is presented. The upper box contains the full abstract code summary tree. Below the concept tree, a local view can be used to look closer to the concept cluster. Developers can click on any node in the concept diagram to get a zoomed view of its child and parents. 
 
 In Figure \ref{fig:userstudy}, a screenshot of the form provided to the participants is presented. When participants right-click on the target clusters, a form with cluster id and a brief description of the execution paths' manual analysis is popped up. In the form, we asked the participants about their preference (1 means least preferred, 5 means most preferred) for names suggested by the six techniques and selected five keywords from the descriptions to complete the study.
+
 
 \section{Results and Discussion}
 \label{results}
 % \vspace{3mm}
 \subsection{User Naming vs. Automatic Naming}
 To investigate how automatic naming accords with manual naming, we have used Pyramid score \cite{nenkova2004evaluating}. Pyramid score is used in natural text summarization tasks to compare an automatic summary with a manual summary. Haiduc et al. \cite{haiduc2010supporting}  used Pyramid score to support source code summary with developers' summary, which motivated us to adopt Pyramid score to find out how our automatic approaches of abstraction harmonize with developers' selections. In Table \ref{table-pyramid1}, we have shown the Pyramid score calculation process for a cluster (i.e., cluster number 10 of the 12 clusters). The preferences of five developers who participated in this study are represented by D1,\ldots, D5. X\_word represents the corresponding outputs of $X \in {TFIDF, LDA, LSI }$ by considering words in function names. Each column presents unique keywords from the selections of five participants. Furthermore, we have marked which words are matched with the automatic summary from a developers' summary in the corresponding cells. In each row for the automatic techniques, we have put the support from five developers for keywords being present in the summary. For example, we can see that keyword $response$ is present in TFIDF with words in the function name variation, and four of the developers picked $response$ in their summary. So, support for keyword $response$ is given 4. To get the Pyramid score for cluster number 10, we have summed each keyword's support in automatic naming by developers. In this case, values are $4(response), 2(send), 1(merge)$. We divide the sum of these support values by the top five most frequent keywords of five developers' summary. So, the score is now $(4+2+1)/(4+4+3+2+2) = 0.466 $ for cluster 10. Greater Pyramid score means that the automatic naming is becoming more human in our case. In Figure \ref{fig:pyramid12}, we have plotted Pyramid score for 12 clusters with the three techniques of word variant and support of the five participants for them. In the figure, we can see that for most of the clusters, the \texttt{TFIDF\_word} based automatic naming technique's summary agrees more compared to other techniques with  the developers' provided summaries.
-% \vspace{3mm}
-\subsection{User Rating on Function Name Variant}
-To answer the RQ2, we use the techniques with function names as unit variation. We asked our participants to rank each technique's summary with a score ranging from 1 to 5 to reflect how well they support the manual description. In Figure \ref{fig:method}, we have plotted the average ranking of the participants for 12 clusters with the techniques. In the figure, we can see the users preferred LSI naming technique over the LDA. LSI is preferred in almost 50\% of the clusters. For clusters 1, 4, 9, participants' preference for LDA and LSI are the same. The reason is that both techniques provided a similar kind of summary for the cluster in the automatic naming process.
-% \vspace{3mm}
 
-\subsection{User Rating on Words in Function Name Variant}
-We have followed a similar approach to answer RQ3 that we used to answer RQ2. We averaged five participants' rankings for 12 clusters for the three techniques (TFIDF, LDA, LSI). In RQ3, we want to know participants' preference when we consider words in the function names as unit for the TFIDF, LDA, LSI-based techniques. In Figure \ref{fig:word}, we have plotted user rankings of the automatically suggested names for 12 clusters. Among twelve clusters, we can see that in seven of them, developers preferred names suggested by TFIDF and LSI technique in preference to the LDA technique, which covers almost 60\% of the clusters. Therefore, \texttt{RQ3} can be answered to establish that words in function name variation perform better with TFIDF, LSI than LDA.      
-% \vspace{3mm}
-
-\subsection{Function Name vs. Words in Function Name}
-For \texttt{RQ4}, we want to see users' preference on TFIDF, LDA, and LSI based techniques of the two variations we mentioned in \texttt{RQ2} and \texttt{RQ3}.
-So, we averaged the user rankings of 12 clusters of three techniques from Figure \ref{fig:method} and Figure \ref{fig:word}. In Figure \ref{fig:method_vs_word}, we plotted the average ranks of the three techniques in two variations (i.e.,function\_names and  words\_in\_function\_names). From the figure, we can observe that developers preferred TFIDF, LDA, and LSI techniques with word as unit over method name variations. Words in function names variation get at least 5\% higher preference than the method names variations for each of the three techniques.    
-
-\begin{table*}
+\begin{table*}[h]
+\small
 \caption{Pyramid score computation }
 \label{table-pyramid1}
 \centering
@@ -257,8 +245,7 @@ D5 &  x     &      &    x         &     &     &        &        & x    &     & x
 \end{tabular}
 \end{table*}
 
-
-\begin{figure*}
+\begin{figure*}[h]
  \pgfplotstableread{
  1 0.7857 0.71 0.29
 2 0.71 0.29 0.14
@@ -316,11 +303,9 @@ nodes near coords
   \vspace{-2mm}
 \end{figure*}
 
-% \begin{figure}
-%   \centering
-%   \includegraphics[width=1.0\columnwidth]{figures/method.png}
-%   \caption{User preference among three implemented naming techniques(considering methods as terms)}~\label{fig:method}
-% \end{figure}
+% \vspace{3mm}
+\subsection{User Rating on Function Name Variant}
+To answer the RQ2, we use the techniques with function names as unit variation. We asked our participants to rank each technique's summary with a score ranging from 1 to 5 to reflect how well they support the manual description. In Figure \ref{fig:method}, we have plotted the average ranking of the participants for 12 clusters with the techniques. In the figure, we can see the users preferred LSI naming technique over the LDA. LSI is preferred in almost 50\% of the clusters. For clusters 1, 4, 9, participants' preference for LDA and LSI are the same. The reason is that both techniques provided a similar kind of summary for the cluster in the automatic naming process.
 
 \begin{figure*}[h]
 \pgfplotstableread{
@@ -382,13 +367,12 @@ nodes near coords
 \end{axis}
 \end{tikzpicture}
 }
-\caption{User preference among three implemented naming techniques(considering methods as terms)}
+\caption{User preference among three implemented naming techniques (considering methods as terms)}
 \label{fig:method}
-\vspace{-2mm}
+% \vspace{-2mm}
 \end{figure*}
 
-
-\begin{figure*}[h]
+\begin{figure*}[h!]
 \pgfplotstableread{
 1	3.4	3.4	3
  2	3.4	3.2	3
@@ -447,18 +431,12 @@ nodes near coords
 \end{axis}
 \end{tikzpicture}
 }
-\caption{User preference among three implemented naming techniques(considering words in methods as terms)}
+\caption{User preference among three implemented naming techniques (considering words in methods as terms)}
 \label{fig:word}
 \vspace{-2mm}
 \end{figure*}
 
-% \begin{figure}
-%   \centering
-%   \includegraphics[width=1.0\columnwidth]{figures/words.png}
-%   \caption{User preference among three implemented naming techniques(considering words in methods as terms}~\label{fig:word}
-% \end{figure}
-
-\begin{figure}[h]
+\begin{figure*}[h]
   \pgfplotstableread{
   
 
@@ -498,7 +476,16 @@ minimum height=0.20in}
 \end{axis}
 \end{tikzpicture}
   \caption{Comparison between three techniques considering function names and words in function names}~\label{fig:method_vs_word}
-\end{figure}
+\end{figure*}
+
+\subsection{User Rating on Words in Function Name Variant}
+We have followed a similar approach to answer RQ3 that we used to answer RQ2. We averaged five participants' rankings for 12 clusters for the three techniques (TFIDF, LDA, LSI). In RQ3, we want to know participants' preference when we consider words in the function names as unit for the TFIDF, LDA, LSI-based techniques. In Figure \ref{fig:word}, we have plotted user rankings of the automatically suggested names for 12 clusters. Among twelve clusters, we can see that in seven of them, developers preferred names suggested by TFIDF and LSI technique in preference to the LDA technique, which covers almost 60\% of the clusters. Therefore, \texttt{RQ3} can be answered to establish that words in function name variation perform better with TFIDF, LSI than LDA.      
+
+
+
+\subsection{Function Name vs. Words in Function Name}
+For \texttt{RQ4}, we want to see users' preference on TFIDF, LDA, and LSI based techniques of the two variations we mentioned in \texttt{RQ2} and \texttt{RQ3}.
+So, we averaged the user rankings of 12 clusters of three techniques from Figure \ref{fig:method} and Figure \ref{fig:word}. In Figure \ref{fig:method_vs_word}, we plotted the average ranks of the three techniques in two variations (i.e.,function\_names and  words\_in\_function\_names). From the figure, we can observe that developers preferred TFIDF, LDA, and LSI techniques with word as unit over method name variations. Words in function names variation get at least 5\% higher preference than the method names variations for each of the three techniques. 
 
 \section{Related Work}
 \label{relatedwork}
