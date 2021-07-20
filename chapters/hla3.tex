@@ -103,7 +103,7 @@ In previous studies, we have used a step-by-step clustering tree as the abstract
 
 \section{Implementation }
 \label{hla3:implementation}
-In this section, we briefly highlight different parts of our implementation as shown in Figure \ref{fig:architecture}.
+In this section, we briefly highlight different parts of our HCPC tool\footnote{https://hcpc.usask.ca} implementation as shown in Figure \ref{fig:architecture}.
 
   \begin{figure*}[h]
     \centering
@@ -213,11 +213,11 @@ From above discussion with regard to write\_connection\_file method, we can see 
 
 \section{Human-subject Study}
 \label{hla3:human_study}
-To evaluate the effectiveness of HCPC, we contacted with \emph{Scidatamanager} development team. We have collected their source code to analyze using our system. We have conducted the study with three developers of the \emph{Scidatamanager} project to find out their opinion about the HCPC tool.
+To evaluate the effectiveness of HCPC, we contacted with \emph{SciDataManager}\footnote{http://scidatamanager.usask.ca} development team. We have collected their source code to analyze using our system. We have conducted the study with three developers of the \emph{SciDataManager} project to find out their opinion about the HCPC tool.
 
 \subsection{Research Questions}
 \label{hla3:evaluation}
-We want to evaluate the effectiveness of HCPC for helping developers comprehend a software project. We address two research questions:
+We want to evaluate the effectiveness of the HCPC tool for helping developers comprehend a software project. We address two research questions:
 \begin{itemize}
     \item \textbf{RQ1:} To what extent developers do agree with our approach for getting overview of a project?
     \item \textbf{RQ2:} How helpful is our approach to understand relevant high-level concepts targeting a low-level source code (method)?
@@ -238,7 +238,7 @@ The interview with developers are conducted remotely via Skype. The interview pr
 While observing the HCPC tool output for \emph{jupyter-client} project, we can relate the different nodes content to the components in \emph{jupyter-client} documentation. We decided to conduct the study on a subject system where the team members can participate in the study to evaluate the HCPC tool performance on their known codebase. We contacted the \emph{SciDataManager} team whether they could share their source code and participate in the study to evaluate the HCPC. The development team agreed to share the codebase and three of them participated in the study. 
 \subsection{Results}
 \textbf{Answering RQ1.} Participants agreed that the HCPC tool can help in getting an overview of their project. When we asked the participants, they started to explore the abstraction tree by carefully observing the keywords for each node and expanding to child nodes. The participants agreed that high-level nodes provide hints to the features in their project. For example, participant P3 said, \emph{``I can relate to different basic components from high level nodes. If someone new joins the team, they can start from top nodes and see the path patterns for getting most frequent behaviour and then explore the code-base easily."} Participants appreciated the node summary as it states in plain text what are the purposes of the keywords in the project. Participants also find that when they see node summary for deeper nodes, the summary becomes more precise for specific features. 
-According to participant P1, \emph{`` This part is helpful as it states in natural texts instead of a few words. Another interesting fact about the summary is when going deeper the summary became more precise.''} While exploring the execution patterns, we observed that participants find it helpful to know some frequent call sequences in specific nodes. However, participant P2, P3 suggested that having the frequency with the patterns would be interesting to know for understanding the importance. 
+According to participant P1, \emph{``This part is helpful as it states in natural texts instead of a few words. Another interesting fact about the summary is when going deeper the summary became more precise.''} While exploring the execution patterns, we observed that participants find it helpful to know some frequent call sequences in specific nodes. However, participant P2, P3 suggested that having the frequency with the patterns would be interesting to know for understanding the importance. 
 
 In summary, \textbf{Participants find the HCPC tool helpful for getting an overview of their software system with node title, summary and execution patterns.} According to their final feedback for comprehending overview, they pointed out that the HCPC tool has the potential to decrease the getting started time for a project. According to participant P1, they believe  it can help to decrease getting started time around 50\%-60\%.
 
@@ -261,6 +261,6 @@ To address internal validity, we have tried to minimize any communication issue 
 
 
 
-\section{Conclusion}
+\section{Summary and Discussion}
 In this study, we have proposed two new approaches to enhance the abstract code summary tree for program comprehension. First, we change the similarity metrics for comparing execution paths. In previous studies, Jaccard distance is used which only considers the content not the sequence. Therefore, in this study, we have changed the similarity metrics to strike\_a\_match algorithm. Second, we changed the clustering approach for more precise grouping of the execution paths. Previous studies suggested to use the hierarchy tree for browsing. However, from previous studies we found that hierarchy tree has abundant abstraction nodes which hinders going deeper levels.
 We used cluster flattening technique which reduces redundant abstraction nodes from hierarchy tree. We have built an interactive system to explore the new abstraction tree with supporting information alongside searching the tree. To evaluate, the system we have conducted a human subject study. We find that our system can be useful for getting acquainted with a software project as well as accomplishing tasks in hand.  
