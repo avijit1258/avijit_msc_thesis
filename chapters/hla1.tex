@@ -41,7 +41,7 @@ This section is presented with a motivational example of real-world scenarios. S
   \caption{A portion of the Call graph of Real-Time-Voice-Cloning project by Pyan}~\label{fig:realTime}
 \end{figure*}
 
-However, in Figure \ref{fig:realTime} we can see a portion of the large call graph generated using Pyan \cite{pyan} for Real-Time-Voice-Cloning \cite{realTime} project. This presentation is very complex and hard to comprehend. Furthermore, if Bob has any particular Software Engineering task to do, first, he needs to locate the concept in source code. Locating source code artifacts relevant to the specific task will help Bob do his task faster. Therefore, our approach starts from this complex call graph and extracts concepts from execution paths in various hierarchical levels. Using the proposed approach, Bob can explore concepts from top-to-bottom, which at the end map to execution paths and the name of functions for smooth inquiries. 
+However, in Figure \ref{fig:realTime} we can see a portion of the large call graph generated using Pyan~\cite{pyan} for Real-Time-Voice-Cloning~\cite{realTime} project. This presentation is very complex and hard to comprehend. Furthermore, if Bob has any particular Software Engineering task to do, first, he needs to locate the concept in source code. Locating source code artifacts relevant to the specific task will help Bob do his task faster. Therefore, our approach starts from this complex call graph and extracts concepts from execution paths in various hierarchical levels. Using the proposed approach, Bob can explore concepts from top-to-bottom, which at the end map to execution paths and the name of functions for smooth inquiries. 
 
 
  
@@ -200,13 +200,13 @@ This section will discuss the research questions that need to be answered regard
 
 
 \subsection{Research questions}
-We want to explore how manual naming supports automatic naming techniques. To investigate this, we set \texttt{RQ1}.
-Besides, we have compared developer preferences for three different techniques using function names as terms by \texttt{RQ2}. Similarly, for \texttt{RQ3}, we changed the input for information retrieval techniques by words in function names instead of function names and compared developers' ratings among the three approaches. Finally, we want to see the performances of our two variations of choosing terms by a systematic comparison by \texttt{RQ4}. 
+We want to explore how manual naming supports automatic naming techniques. To investigate this, we set \texttt{RQ1} described below.
+Besides, we have compared developer preferences for three different techniques using function names as terms by \texttt{RQ2}. Similarly, for \texttt{RQ3}, we changed the input for information retrieval techniques by words in function names instead of function names and compared developers' ratings among the three approaches. Finally, we want to see the performances of our two variations of choosing terms by a systematic comparison by \texttt{RQ4}. The four research questions correspond to the overarching research questions 1, 2 described in Section \ref{intro:research_questions}.  
 
 
 
 \begin{itemize}
-    \item \textbf{\texttt{RQ1}} How well does the automatic labeling perform using the candidate approaches compared to manual labeling?  (To evaluate this, we will use pyramid measure)
+    \item \textbf{\texttt{RQ1}} How well does the automatic labeling perform using the candidate approaches compared to manual labeling? 
     \item \textbf{\texttt{RQ2}} How do developers evaluate different labeling approaches based on function names?
     \item \textbf{\texttt{RQ3}} How do developers evaluate different labeling approaches based on words in method names? 
     \item \textbf{\texttt{RQ4}} How can we compare the preferences of developers between the two approaches addressed in \texttt{RQ2} and \texttt{RQ3}? 
@@ -215,7 +215,7 @@ Besides, we have compared developer preferences for three different techniques u
 
 
 \subsection{Dataset Collection}
-In order to conduct the user-study, we have collected source code of three popular Python projects \texttt{Detectron}~\cite{Detectron2018}, \texttt{Real\-Time\-Voice\-Cloning}~\cite{realTime} and \texttt{requests}~\cite{requests}. The reason behind choosing these subject systems for our study is that they are popular among Python developer communities. These projects follow the standard conventions of software developments so participants will be able to relate keywords from their day-to-day knowledge. Additionally, open-source projects tend to follow proper function naming conventions, which is important for our approach as it completely depends on function names. We extracted source code and applied the steps described in Section \ref{alg:overall}. We have printed clusters with their corresponding execution paths and names suggested by the candidate techniques in a file for doing the user-study. We have chosen 12 clusters semi-randomly, i.e.,  four from each of the subject systems, which ensures the coverage of different levels' clusters. 
+In order to conduct the user-study, we have collected source code of three popular Python projects \emph{Detectron}~\cite{Detectron2018}, \emph{Real-Time-Voice-Cloning}~\cite{realTime} and \emph{requests}~\cite{requests}. The reason behind choosing these subject systems for our study is that they are popular among Python developer communities. These projects follow the standard conventions of software developments so participants will be able to relate keywords from their day-to-day knowledge. Additionally, open-source projects tend to follow proper function naming conventions, which is important for our approach as it completely depends on function names. We extracted source code and applied the steps described in Section \ref{alg:overall}. We have printed clusters with their corresponding execution paths and names suggested by the candidate techniques in a file for doing the user-study. We have chosen 12 clusters semi-randomly, i.e.,  four from each of the subject systems, which ensures the coverage of different levels' clusters. 
 
 \begin{table}[h]
 \small
@@ -374,7 +374,7 @@ nodes near coords
 }
 \caption{User preference among three implemented naming techniques (considering methods as terms)}
 \label{fig:method}
-% \vspace{-2mm}
+
 \end{figure}
 
 

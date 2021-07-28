@@ -13,7 +13,7 @@ In the previous studies, we have advanced the existing works on hierarchical abs
 \label{hla3:approach}
 In this study, we have followed similar steps as study 1 and 2 except two changes. First, we have changed the similarity score from Jaccard distance to strike\_a\_match algorithm. The strike\_a\_match algorithm takes into account the contents of two lists and the sequence they appear. On the contrary, Jaccard distance only considers the content of two lists. To improve the clustering result, we have made the change in similarity metrics. Second, we have added one more step to reach the final abstract code summary tree. Previously we have used the step by step tree returned by a linkage algorithm. However, the linkage tree is not flexible for browsing. Therefore, we have used a cluster flattening technique to get more flexible 5-6 depth tree. We discuss strike\_a\_match, node summary, execution pattern and cluster flattening techniques in the following subsections. 
 
-\subsection{strike\_a\_match}
+\subsection{Strike\_A\_Match Algorithm}
 In Algorithm \ref{alg:strike_a_match}, we provided the pseudo code for reproducing the strike\_a\_match algorithm\footnote{http://www.catalysoft.com/articles/strikeamatch.html}. The method takes input two lists which are execution paths one and two. The method returns a similarity score between 0 and 1 where 0 means no match and 1 means full match. In line 2-3, all method pairs in consecutive order are generated. In line 4, we calculate union value by summing length of the two generated pair lists. From line 6 to 14, we iterate over the pair lists and see if they match to calculate intersection value. When we find a match, we remove the pair from $ep2\_pairs$ to avoid considering the same match again. Finally, we return the similarity score using union and intersection values. The method considers the order in addition to the content of two lists. 
 
 
@@ -217,7 +217,7 @@ To evaluate the effectiveness of HCPC, we contacted with \emph{SciDataManager}\f
 
 \subsection{Research Questions}
 \label{hla3:evaluation}
-We want to evaluate the effectiveness of the HCPC tool for helping developers comprehend a software project. We address two research questions:
+We want to evaluate the effectiveness of the HCPC tool for helping developers comprehend a software project. We address two research questions which correspond to the overarching research question 5 of Section \ref{intro:research_questions}.
 \begin{itemize}
     \item \textbf{RQ1:} To what extent developers do agree with our approach for getting overview of a project?
     \item \textbf{RQ2:} How helpful is our approach to understand relevant high-level concepts targeting a low-level source code (method)?
