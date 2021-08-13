@@ -1,38 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CHANGE LOG
 %
-% Version 1.4.24
-% --------------
-% - No new features, just under-the-hood improvements and bugfixes.
-% - Replaced all \bf commands with \bfseries commands for improved compatibility
-%   with overleaf.com.
-% - Removed a stray character from thesis_template.tex 
-%
-% Version 1.4.23
-% --------------
-%
-% - Added copyright statement to title page at the advisement of CGPS.
-%
-% Version 1.4.22
-% --------------
-% - Improved layout of list of abbreviations (LoA) so it respects margins.  LoA 
-%   now uses a tabularx environment with ltablex package to allow page-spanning.
-% - LoA now uses same line spacing as the rest of the document so it conforms to
-%   alleged CGPS guidelines.
-% - Chapter headings now use boldface weight instead of small caps.  This looks
-%   worse but is the only way to convince CGPS that the chapter headings have
-%   the same appearance in the table of contents.
-% - Added support for correct hyperlinking of frontmatter when hyperref 
-%   package is used.
-% - Now loads hyperref package by default.  Can be disabled with the document
-%   class option "nohyperref".
-%
-% Version 1.4.21
-% --------------
-% - Added "Disclaimer" to Permission to Use Page at the behest of CGPS.
-% - Permission to use page now refers to the document as a "thesis" for MSc,
-%   and as a "dissertation" for PhD.
-%
 % Version 1.4.20
 % --------------
 % 
@@ -337,7 +305,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{uofsthesis-cs}[2021/06/18 -- U of S Thesis Style for Computer Science (v. 1.4.24), -- Mark G. Eramian]
+\ProvidesClass{uofsthesis-cs}[2019/01/16 -- U of S Thesis Style for Computer Science (v. 1.4.20), -- Mark G. Eramian]
 
 
 \DeclareOption{doublespace}{
@@ -363,10 +331,6 @@
 \let\bound=Y
 }
 
-\DeclareOption{nohyperref}{
-\let\nohyperref=Y
-}
-
 \ProcessOptions
 
 \LoadClassWithOptions{report}
@@ -374,12 +338,7 @@
 \RequirePackage{titlesec}
 \RequirePackage{caption}
 \RequirePackage{geometry} 	% for margins and paper size
-\RequirePackage{tabularx}
-\RequirePackage{ltablex}
-\ifx\nohyperref\undefined
-	\RequirePackage{hyperref}
-\fi
-\keepXColumns
+\RequirePackage{longtable}
 \RequirePackage[titletoc]{appendix}
 
 %2.54cm = 1in
@@ -445,9 +404,9 @@
 
 
 % Customize the table of contents title fonts
-\renewcommand{\cfttoctitlefont}{\LARGE\bfseries\hfill}
-\renewcommand{\cftloftitlefont}{\LARGE\bfseries\hfill}
-\renewcommand{\cftlottitlefont}{\LARGE\bfseries\hfill}
+\renewcommand{\cfttoctitlefont}{\LARGE\sc\hfill}
+\renewcommand{\cftloftitlefont}{\LARGE\sc\hfill}
+\renewcommand{\cftlottitlefont}{\LARGE\sc\hfill}
 \renewcommand{\cftaftertoctitle}{\hfill\hfill} % October 2, 2014 - not sure why the double-\hfill is needed now, but I have to put it there to get the table of contents centred.
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftafterlottitle}{\hfill}
@@ -541,16 +500,8 @@
 
 \newcommand{\PhD}{Doctor of Philosophy}
 \newcommand{\MSc}{Master of Science}
-\newcommand{\doctype}{unknown}
 
-\newcommand{\degree}[1]{
-\gdef\@degree{#1}
-\ifx#1\PhD
-\renewcommand{\doctype}{dissertation}
-\else
-\renewcommand{\doctype}{thesis}
-\fi
-}
+\newcommand{\degree}[1]{\gdef\@degree{#1}}
 \newcommand{\defencedate}[1]{\gdef\@defencedate{#1}}
 \newcommand{\department}[1]{\gdef\@department{#1}}
 \newcommand{\academicunit}[1]{\gdef\@academicunit{#1}}
@@ -561,8 +512,6 @@
 \title{}
 \degree{}
 \defencedate{}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % MAKETITLE definition
@@ -603,9 +552,9 @@ or \protect\degree{\protect\MSc}}
 \strut\\
 \Large
 \ifx\proposal\undefined
-A \doctype\ submitted to the\\
+A Thesis Submitted to the\\
 College of Graduate and Postdoctoral Studies\\
-in partial fulfillment of the requirements\\
+in Partial Fulfillment of the Requirements\\
 for the degree of \@degree\\
 in the \@academicunit\ of \@department\\
 University of Saskatchewan\\
@@ -616,8 +565,7 @@ By\\
 \@author\\
 \ifx\proposal\undefined
 \strut\\
-\copyright \@author, \@defencedate.  All rights reserved.\\
-Unless otherwise noted, copyright of the material in this thesis belongs to the author.
+\copyright \@author, \@defencedate.  All rights reserved.
 \fi
 \end{center}
 \vfil
@@ -642,21 +590,13 @@ Unless otherwise noted, copyright of the material in this thesis belongs to the 
 % Command to add an entry to the list of abbreviations.
 \newcommand{\abbrev}[2]{#1& #2\\}
 
-%\edef\foo{\PhD}
-%\edef\bar{\@degree}
-%% Set document type name for front matter
-%\ifx 
-%\newcommand{\doctype}{dissertation}
-%\else
-%\newcommand{\doctype}{thesis}
-%\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FRONTMATTER DEFINTION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Remove chapter numbers and reformat the chapter headings for the preamble
-\titleformat{\chapter}{\renewcommand{\baselinestretch}{1.5}\LARGE\bfseries\fillast}{\renewcommand{\baselinestretch}{\spacemultiplier}\normalsize}{0pt plus0pt minus0pt}{}
+\titleformat{\chapter}{\renewcommand{\baselinestretch}{1.5}\LARGE\sc\fillast}{\renewcommand{\baselinestretch}{\spacemultiplier}\normalsize}{0pt plus0pt minus0pt}{}
 \titlespacing{\chapter}{0pt}{-30pt plus0pt minus0pt}{20pt plus0pt minus0pt}
 
 
@@ -675,41 +615,38 @@ Unless otherwise noted, copyright of the material in this thesis belongs to the 
 %\addcontentsline{toc}{chapter}{Permission to Use}
 \ifx \@ptuaddress \@empty
 \ptuaddress{Head of the Department of Computer Science\\
-176 Thorvaldson Building, 110 Science Place\\
+176 Thorvaldson Building\\
+110 Science Place\\
 University of Saskatchewan\\
-Saskatoon, Saskatchewan S7N 5C9 Canada
+Saskatoon, Saskatchewan\\
+Canada\\
+S7N 5C9\\
+\strut\\
+Or\\
+\strut\\
+Dean\\
+College of Graduate and Postdoctoral Studies\\
+University of Saskatchewan\\
+116 Thorvaldson Building, 110 Science Place\\
+Saskatoon, Saskatchewan  S7N 5C9\\
+Canada
 }
 \fi
 
 
-\phantomsection
+
 \addcontentsline{toc}{chapter}{Permission to Use}
 \chapter*{Permission to Use} 
-\noindent In presenting this \doctype\ in partial fulfillment of the requirements for a Postgraduate degree from the University of Saskatchewan, I agree that the Libraries of this University may make it freely available for inspection. I further agree that permission for copying of this \doctype\ in any manner, in whole or in part, for scholarly purposes may be granted by the professor or professors who supervised my \doctype\ work or, in their absence, by the Head of the Department or the Dean of the College in which my \doctype\ work was done. It is understood that any copying or publication or use of this \doctype\ or parts thereof for financial gain shall not be allowed without my written permission. It is also understood that due recognition shall be given to me and to the University of Saskatchewan in any scholarly use which may be made of any material in my \doctype.
+In presenting this thesis in partial fulfilment of the requirements for a Postgraduate degree from the University of Saskatchewan, I agree that the Libraries of this University may make it freely available for inspection. I further agree that permission for copying of this thesis in any manner, in whole or in part, for scholarly purposes may be granted by the professor or professors who supervised my thesis work or, in their absence, by the Head of the Department or the Dean of the College in which my thesis work was done. It is understood that any copying or publication or use of this thesis or parts thereof for financial gain shall not be allowed without my written permission. It is also understood that due recognition shall be given to me and to the University of Saskatchewan in any scholarly use which may be made of any material in my thesis.
 
-{\let\clearpage\relax\vspace*{1.5cm} \chapter*{Disclaimer}}
-
-
-%\noindent The [name of company/corporation/brand name and website] were exclusively created to meet the thesis and/or exhibition requirements for the degree of [title of degree] at the University of Saskatchewan.  
-\noindent Reference  in this \doctype\ to any specific commercial products, process, or service by trade name, trademark, manufacturer, or otherwise, does not constitute or imply its endorsement, recommendation, or favoring by the University of Saskatchewan. The views and opinions of the author expressed herein do not state or reflect those of the University of Saskatchewan, and shall not be used for advertising or product endorsement purposes.
-
-\bigskip
-
-\noindent Requests for permission to copy or to make other uses of materials in this \doctype\ in whole or part should be addressed to:
-
+Requests for permission to copy or to make other use of material in this thesis in whole or part should be addressed to:\\
 \begin{itemize}
 \item[] \@ptuaddress
-\item[] OR
-\item[] {Dean \\
-	College of Graduate and Postdoctoral Studies\\
-	University of Saskatchewan\\
-	116 Thorvaldson Building, 110 Science Place\\
-	Saskatoon, Saskatchewan  S7N 5C9 Canada}
 \end{itemize}
 \newpage
 \fi
+
 % ABSTRACT
-\phantomsection
 \addcontentsline{toc}{chapter}{Abstract}
 \chapter*{Abstract}
 %\strut\\
@@ -721,7 +658,6 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 \relax
 \else
         \ifx\proposal\undefined
-        \phantomsection
         \addcontentsline{toc}{chapter}{Acknowledgements}
         \chapter*{Acknowledgements}
         \@acknowledgements
@@ -742,7 +678,6 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 \fi
 
 %TABLE OF CONTENTS
-\phantomsection
 \addcontentsline{toc}{chapter}{Contents}
 {\renewcommand{\baselinestretch}{1}\normalsize
 \tableofcontents
@@ -751,7 +686,6 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 
 %LIST OF TABLES
 \ifx\notablelist\undefined
-\phantomsection
 \addcontentsline{toc}{chapter}{List of Tables}
 {\renewcommand{\baselinestretch}{1}\normalsize
 \listoftables
@@ -761,7 +695,6 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 
 %LIST OF FIGURES
 \ifx\nofigurelist\undefined
-\phantomsection
 \addcontentsline{toc}{chapter}{List of Figures}
 {\renewcommand{\baselinestretch}{1}\normalsize
 \listoffigures
@@ -775,15 +708,13 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 \else
 %        \addcontentsline{toc}{chapter}{List of Abbreviations}
         {
-          \phantomsection
           \addcontentsline{toc}{chapter}{List of Abbreviations}
-          \chapter*{List of Abbreviations}
-
-%          \renewcommand{\baselinestretch}{1}\normalsize
+          \chapter*{List of Abbreviations}          
+          \renewcommand{\baselinestretch}{1}\normalsize
           \begin{center}
-		  \begin{tabularx}{\textwidth}{lX}
+            \begin{longtable}{lp{11cm}}
               \@loa   
-            \end{tabularx}
+            \end{longtable}
           \end{center}        
         }
         \newpage
@@ -792,7 +723,7 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 \pagenumbering{arabic}
 
 % Return to normal chapters
-\titleformat{\chapter}[block]{\LARGE\bfseries\centering}{\thechapter{ }}{0pt}{\LARGE\bfseries}
+\titleformat{\chapter}[block]{\LARGE\sc\centering}{\thechapter{ }}{0pt}{\LARGE\sc}
  
 % Old title format with the word "Chapter" in the title. 
 %\titleformat{\chapter}[display]{\renewcommand{\baselinestretch}{1.5}\LARGE\sc\fillast}{Chapter
@@ -818,7 +749,7 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 % the titlesec package overrides the changes to the chapter headings that
 % the \appendix commands make.  We use the following workround:
 \titleformat{\chapter}[display]{\renewcommand{\baselinestretch}{1.5}\normalsize
-\LARGE\bfseries\fillast}{Appendix \thechapter}{0pt}{}
+\LARGE\sc\fillast}{Appendix \thechapter}{0pt}{}
 
 % This is needed to put a one-inch top margin on the first page of 
 % appendices -- this seems to be what CGSR wants.  If not, just comment 
@@ -855,7 +786,6 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 
 % Add references to Table of Contents
 \newpage
-\phantomsection
 \addcontentsline{toc}{chapter}{References}
 
 \bibliographystyle{#1}
@@ -877,7 +807,6 @@ Saskatoon, Saskatchewan S7N 5C9 Canada
 
 \newpage
 % Add references to Table of Contents
-\phantomsection
 \addcontentsline{toc}{chapter}{References}
 }
 
